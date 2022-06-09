@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:job_aid/theme/colors.dart';
+import 'package:job_aid/constants/colors.dart';
 
 class BottomMenuBar extends StatefulWidget {
   const BottomMenuBar({Key key}) : super(key: key);
@@ -18,7 +18,7 @@ class _BottomMenuBarState extends State<BottomMenuBar> {
           children: [
             Expanded(
               child: IconButton(
-                icon: const Icon(Icons.home_outlined, color: KColors.primary),
+                icon: const Icon(Icons.home_outlined, color: KColors.primary,),
                 onPressed: () {},
               ),
             ),

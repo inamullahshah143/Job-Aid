@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:job_aid/theme/colors.dart';
-import 'package:job_aid/theme/images.dart';
-import 'package:job_aid/ui/bottom_menu_bar.dart';
-import 'package:job_aid/ui/job_detail_page.dart';
+import 'package:job_aid/constants/colors.dart';
+import 'package:job_aid/constants/images.dart';
+import 'package:job_aid/screens/bottom_menu_bar.dart';
+import 'package:job_aid/screens/job_detail_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);

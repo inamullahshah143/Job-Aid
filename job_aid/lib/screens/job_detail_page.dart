@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:job_aid/theme/colors.dart';
-import 'package:job_aid/theme/images.dart';
+import 'package:job_aid/constants/colors.dart';
+import 'package:job_aid/constants/images.dart';
 
 class JobDetailPage extends StatefulWidget {
   const JobDetailPage({Key key}) : super(key: key);

@@ -35,20 +35,25 @@ class HomePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Hello Jason",
-              style: TextStyle(
-                fontSize: 15,
-                color: KColors.subtitle,
-                fontWeight: FontWeight.w500,
-              )),
+          const Text(
+            "Hello Jason",
+            style: TextStyle(
+              fontSize: 15,
+              color: KColors.subtitle,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           const SizedBox(
             height: 6,
           ),
-          const Text("Find your perfect job",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: KColors.title,
-                  fontWeight: FontWeight.bold)),
+          const Text(
+            "Find your perfect job",
+            style: TextStyle(
+              fontSize: 20,
+              color: KColors.title,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -59,11 +64,15 @@ class HomePage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
-                      color: KColors.lightGrey,
-                      borderRadius: BorderRadius.circular(5)),
+                    color: KColors.lightGrey,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
                   child: const Text(
                     "What are you looking for?",
-                    style: TextStyle(fontSize: 15, color: KColors.subtitle),
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: KColors.subtitle,
+                    ),
                   ),
                 ),
               ),

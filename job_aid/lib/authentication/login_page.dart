@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:job_aid/authentication/common/theme_helper.dart';
+import 'package:job_aid/constants/theme_helper.dart';
 import 'package:job_aid/screens/home_page.dart';
 import 'forgot_password_page.dart';
 import 'registration_page.dart';
-import 'widgets/header_widget.dart';
+import '../../constants/header_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:job_aid/authentication/pages/splash_screen.dart';
+import 'package:job_aid/authentication/splash_screen.dart';
 import 'package:job_aid/constants/colors.dart';
 
 void main() {

@@ -1,10 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:job_aid/authentication/pages/login_page.dart';
-import 'package:job_aid/authentication/pages/widgets/header_widget.dart';
+import 'package:job_aid/authentication/login_page.dart';
+import 'package:job_aid/constants/header_widget.dart';
+import 'package:job_aid/constants/theme_helper.dart';
 import 'package:job_aid/screens/home_page.dart';
-
-import '../common/theme_helper.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key key}) : super(key: key);

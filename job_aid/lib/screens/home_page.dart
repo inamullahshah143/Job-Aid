@@ -1,11 +1,15 @@
+import 'package:awesome_bottom_navigation/awesome_bottom_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:job_aid/constants/colors.dart';
 import 'package:job_aid/constants/images.dart';
-import 'package:job_aid/screens/bottom_menu_bar.dart';
 import 'package:job_aid/screens/job_detail_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  HomePage({Key key}) : super(key: key);
+
+  final selectedIndex = 0.obs;
+
   Widget _appBar(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -52,7 +56,8 @@ class HomePage extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
                       color: KColors.lightGrey,
                       borderRadius: BorderRadius.circular(5)),
@@ -263,9 +268,10 @@ class HomePage extends StatelessWidget {
                 Text(
                   subtitle,
                   style: const TextStyle(
-                      fontSize: 14,
-                      color: KColors.title,
-                      fontWeight: FontWeight.bold),
+                    fontSize: 14,
+                    color: KColors.title,
+                    fontWeight: FontWeight.bold,
+                  ),
                 )
               ],
             )
@@ -279,7 +285,25 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: KColors.background,
-      bottomNavigationBar: const BottomMenuBar(),
+      bottomNavigationBar: AwesomeBottomNav(
+        icons: const [
+          Icons.home_outlined,
+          Icons.category_outlined,
+          Icons.account_circle_outlined,
+        ],
+        highlightedIcons: const [
+          Icons.home,
+          Icons.category,
+          Icons.account_circle,
+        ],
+        onTapped: (int value) {
+          selectedIndex.value = value;
+        },
+        bodyBgColor: KColors.background,
+        highlightColor: KColors.primary,
+        navFgColor: Colors.grey.withOpacity(0.5),
+        navBgColor: Colors.white,
+      ),
       body: SafeArea(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,

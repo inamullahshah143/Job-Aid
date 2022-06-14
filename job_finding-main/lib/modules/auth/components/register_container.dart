@@ -1,7 +1,6 @@
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:job_finding/modules/auth/components/have_an_account_or_not_view.dart';
 import 'package:job_finding/modules/auth/components/social_button.dart';
 import 'package:job_finding/router_name.dart';
 import 'package:job_finding/utils/constants.dart';
@@ -111,8 +110,6 @@ class _RegisterContainerState extends State<RegisterContainer> {
             },
             child: const Text("Register"),
           ),
-          const SizedBox(height: 16),
-          HaveAnAccountOrNotView(isLogin: false, onPressed: () {}),
           const Spacer(),
           const SocialButton(text: 'Or Register in with'),
           const SizedBox(height: 50),

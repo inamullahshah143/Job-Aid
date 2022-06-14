@@ -18,7 +18,25 @@ class _ContinueAsScreenState extends State<ContinueAsScreen> {
       body: Column(
         children: [
           Expanded(
-            child: Center(child: SvgPicture.asset(Kimages.logoBlackIcon)),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(Kimages.logoBlackIcon),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'AID',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w800,
+                        color: secondaryColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,9 +75,15 @@ class _ContinueAsScreenState extends State<ContinueAsScreen> {
                 },
                 text: 'Company',
                 caption: 'Finding a job here never\nbeen easier than before',
-                icon: Kimages.arrowBlack,
-                backgroundColor: circleColor.withOpacity(0.4),
-                reverse: true,
+                icon: Kimages.arrowWhite,
+                backgroundColor: secondaryColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: blackColor.withOpacity(0.4),
+                    offset: const Offset(4, 8),
+                    blurRadius: 20,
+                  ),
+                ],
               ),
               const SizedBox(height: 60),
             ],

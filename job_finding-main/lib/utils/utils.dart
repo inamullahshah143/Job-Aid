@@ -130,10 +130,13 @@ class Utils {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       alignment: Alignment.center,
-                      child: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 16,
+                      child: const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 16,
+                        ),
                       ),
                     ),
                     onTap: onTap,

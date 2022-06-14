@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:flutter/material.dart';
-import 'package:job_finding/modules/auth/components/have_an_account_or_not_view.dart';
 import 'package:job_finding/modules/auth/components/social_button.dart';
 import 'package:job_finding/router_name.dart';
 import 'package:job_finding/utils/constants.dart';
@@ -90,8 +89,6 @@ class _LoginContainerState extends State<LoginContainer> {
             },
             child: const Text("Log In"),
           ),
-          const SizedBox(height: 16),
-          HaveAnAccountOrNotView(isLogin: true, onPressed: () {}),
           const Spacer(),
           const SocialButton(text: 'Or log in with'),
           const SizedBox(height: 50),

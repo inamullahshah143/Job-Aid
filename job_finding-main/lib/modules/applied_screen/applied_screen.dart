@@ -58,36 +58,18 @@ class _AppliedScreenState extends State<AppliedScreen> {
   }
 
   Column _appliedList() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        SizedBox(height: 16),
-        Text(
-          "04 Applied Found",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    return  Column(
+      children: [
+        const SizedBox(height: 100),
+        Image.asset(Kimages.onboarding_2),
+        const SizedBox(height: 24),
+        const Text(
+          "No Job Applied",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
         ),
-        SizedBox(height: 16),
-        JobCardComponent(
-          address: "Dhaka, Bangladesh",
-          tags: ["Full time", "In House", "Experience : 3y"],
-          title: "Product Design",
-        ),
-        JobCardComponent(
-          address: "Dhaka, Bangladesh",
-          tags: ["Full time", "In House", "Experience : 3y"],
-          title: "UX Design",
-        ),
-        JobCardComponent(
-          address: "Dhaka, Bangladesh",
-          tags: ["Full time", "In House", "Experience : 3y"],
-          title: "UX Design",
-        ),
-        JobCardComponent(
-          address: "Dhaka, Bangladesh",
-          tags: ["Full time", "In House", "Experience : 3y"],
-          title: "UX Design",
-        ),
-        SizedBox(height: 16),
+        const SizedBox(height: 24),
+        const Text("There is no job applyed yet",
+            style: TextStyle(fontSize: 14, color: labelColor))
       ],
     );
   }

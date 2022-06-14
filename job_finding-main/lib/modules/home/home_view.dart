@@ -65,16 +65,7 @@ class HomeView extends StatelessWidget {
               const BoxConstraints(maxHeight: 40, maxWidth: 40),
           suffixIconConstraints:
               const BoxConstraints(maxHeight: 40, maxWidth: 40),
-          prefixIcon: Container(
-            height: 24,
-            width: 24,
-            margin: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: secondaryColor,
-              shape: BoxShape.circle,
-            ),
-          ),
-          suffixIconColor: secondaryColor,
+          
           suffixIcon: GestureDetector(
             onTap: ()=>Navigator.pushNamed(context, Routes.search),
             child: Container(

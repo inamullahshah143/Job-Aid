@@ -28,9 +28,9 @@ class ThemeHelper {
   BoxDecoration inputBoxDecorationShaddow() {
     return BoxDecoration(boxShadow: [
       BoxShadow(
-        color: Colors.black.withOpacity(0.1),
-        blurRadius: 20,
-        offset: const Offset(0, 5),
+        color: Colors.black.withOpacity(0.01),
+        blurRadius: 0,
+        offset: const Offset(0, 0),
       )
     ]);
   }

@@ -13,6 +13,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
+    final Map? userType = ModalRoute.of(context)?.settings.arguments as Map;
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
@@ -41,10 +42,14 @@ class _AuthScreenState extends State<AuthScreen> {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            LoginContainer(),
-            RegisterContainer(),
+            LoginContainer(
+              userType: userType!['userType'].toString(),
+            ),
+            RegisterContainer(
+              userType: userType['userType'].toString(),
+            ),
           ],
         ),
       ),

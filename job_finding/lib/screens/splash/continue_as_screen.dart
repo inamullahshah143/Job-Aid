@@ -55,7 +55,8 @@ class _ContinueAsScreenState extends State<ContinueAsScreen> {
               ),
               ContinueButton(
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, Routes.authScreen);
+                  Navigator.pushReplacementNamed(context, Routes.authScreen,
+                      arguments: {'userType': 'Candidate'});
                 },
                 text: 'Candidate',
                 caption: 'Let’s recruit your great\ncandidate faster here',
@@ -71,7 +72,8 @@ class _ContinueAsScreenState extends State<ContinueAsScreen> {
               ),
               ContinueButton(
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, Routes.authScreen);
+                  Navigator.pushReplacementNamed(context, Routes.authScreen,
+                      arguments: {'userType': 'Company'});
                 },
                 text: 'Company',
                 caption: 'Finding a job here never\nbeen easier than before',

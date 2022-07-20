@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:cool_stepper_reloaded/cool_stepper_reloaded.dart';
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:job_finding/utils/constants.dart';
 
 class RegisterContainer extends StatefulWidget {
@@ -14,6 +17,19 @@ class RegisterContainer extends StatefulWidget {
 
 class _RegisterContainerState extends State<RegisterContainer> {
   bool isChecked = false;
+  List<DropdownMenuItem> industries = [
+    const DropdownMenuItem(
+      child: Text(''),
+      value: '',
+    )
+  ];
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      readIndustries();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,14 +158,9 @@ class _RegisterContainerState extends State<RegisterContainer> {
             const Text(
                 'Your profile headline is an opportunity to share in a few words your occupation, interests, or other information which you want to highlight about yourself.'),
             const SizedBox(height: 20),
-            DropdownButtonFormField(
+            DropdownButtonFormField<dynamic>(
               onChanged: (value) {},
-              items: const [
-                DropdownMenuItem(
-                  child: Text(''),
-                  value: '',
-                ),
-              ],
+              items: industries,
               decoration: const InputDecoration(
                 hintText: 'Industry',
                 labelText: 'Industry',
@@ -224,4 +235,19 @@ class _RegisterContainerState extends State<RegisterContainer> {
   }
 
   void _onFinish() {}
+  Future readIndustries() async {
+    final String response =
+        await rootBundle.loadString('assets/industries.json');
+    final data = await json.decode(response);
+    for (var item in data) {
+      industries.add(
+        DropdownMenuItem(
+          child: Text(
+            item['title'],
+          ),
+          value: item['title'],
+        ),
+      );
+    }
+  }
 }

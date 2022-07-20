@@ -289,6 +289,34 @@ class _RegisterContainerState extends State<RegisterContainer> {
           ],
         ),
       ),
+      CoolStep(
+        alignment: Alignment.center,
+        content: Column(
+          children: [
+            TextChipField(
+              seprator: ",",
+              spacing: 5,
+              decoration: const InputDecoration(
+                hintText: 'Skills',
+                labelText: 'Skills',
+              ),
+              onChanged: (value) {},
+            ),
+            const SizedBox(height: 20),
+            ...getLanguages(),
+            const SizedBox(height: 20),
+            const SizedBox(height: 5),
+            const Text(
+              'When you create an account, your country is automatically indicated on your profile from your geolocation. Please check that it accurately represents your current location, and edit it, if necessary. \n\nAdding your city and state or province helps to share more information about yourself and find more connections on RemoteHub. It will also help to get recommendations about local jobs available in your city, and match you with potential employers.',
+              style: TextStyle(
+                color: labelColor,
+                fontSize: 12.0,
+              ),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
     ];
 
     return CoolStepper(
@@ -351,29 +379,32 @@ class _RegisterContainerState extends State<RegisterContainer> {
   }
 
   List<Widget> getLanguages() {
-    List<Widget> friendsTextFields = [];
+    List<Widget> languageTextFields = [];
     for (int i = 0; i < languageList.length; i++) {
-      friendsTextFields.add(Material(
-        child: Row(
-          children: [
-            Flexible(
-              child: LanguagesFields(index: i),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Flexible(
-              child: LevelFields(index: i),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: _addRemoveButton(i == languageList.length - 1, i),
-            ),
-          ],
+      languageTextFields.add(
+        Material(
+          color: Colors.white,
+          child: Row(
+            children: [
+              Flexible(
+                child: LanguagesFields(index: i),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Flexible(
+                child: LevelFields(index: i),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: _addRemoveButton(i == languageList.length - 1, i),
+              ),
+            ],
+          ),
         ),
-      ));
+      );
     }
-    return friendsTextFields;
+    return languageTextFields;
   }
 
   Widget _addRemoveButton(bool add, int index) {
@@ -469,6 +500,7 @@ class _LevelFieldsState extends State<LevelFields> {
 
     return DropdownButtonFormField(
       iconSize: 0.0,
+      isDense: true,
       items: const [
         DropdownMenuItem(
           child: Text('Level 1'),
@@ -496,6 +528,7 @@ class _LevelFieldsState extends State<LevelFields> {
       decoration: const InputDecoration(
         hintText: 'Level',
         labelText: 'Level',
+        isDense: true,
       ),
       validator: (String? v) {
         if (v!.isEmpty) {

@@ -155,19 +155,33 @@ class _RegisterContainerState extends State<RegisterContainer> {
                 helperText: 'Example: Senior UI/UX designer',
               ),
             ),
+            const SizedBox(height: 5),
             const Text(
-                'Your profile headline is an opportunity to share in a few words your occupation, interests, or other information which you want to highlight about yourself.'),
+              'Your profile headline is an opportunity to share in a few words your occupation, interests, or other information which you want to highlight about yourself.',
+              style: TextStyle(
+                color: labelColor,
+                fontSize: 12.0,
+              ),
+            ),
             const SizedBox(height: 20),
             DropdownButtonFormField<dynamic>(
               onChanged: (value) {},
               items: industries,
+              isDense: true,
+              iconSize: 0.0,
               decoration: const InputDecoration(
                 hintText: 'Industry',
                 labelText: 'Industry',
               ),
             ),
+            const SizedBox(height: 5),
             const Text(
-                'Adding your industry helps to share more information about yourself and find more connections on RemoteHub, as well as to get recommendations about the jobs relevant for this industry.'),
+              'Adding your industry helps to share more information about yourself and find more connections on RemoteHub, as well as to get recommendations about the jobs relevant for this industry.',
+              style: TextStyle(
+                color: labelColor,
+                fontSize: 12.0,
+              ),
+            ),
             const SizedBox(height: 20),
             TextFormField(
               textInputAction: TextInputAction.next,
@@ -237,9 +251,9 @@ class _RegisterContainerState extends State<RegisterContainer> {
   void _onFinish() {}
   Future readIndustries() async {
     final String response =
-        await rootBundle.loadString('assets/industries.json');
+        await rootBundle.loadString('assets/json/industries.json');
     final data = await json.decode(response);
-    for (var item in data) {
+    for (var item in data['data']) {
       industries.add(
         DropdownMenuItem(
           child: Text(

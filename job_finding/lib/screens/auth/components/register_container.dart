@@ -134,19 +134,29 @@ class _RegisterContainerState extends State<RegisterContainer> {
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.text,
               decoration: const InputDecoration(
-                hintText: 'Your Name',
-                labelText: 'Your Name',
+                hintText: 'Headline',
+                labelText: 'Headline',
+                helperText: 'Example: Senior UI/UX designer',
               ),
             ),
+            const Text(
+                'Your profile headline is an opportunity to share in a few words your occupation, interests, or other information which you want to highlight about yourself.'),
             const SizedBox(height: 20),
-            TextFormField(
-              textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.emailAddress,
+            DropdownButtonFormField(
+              onChanged: (value) {},
+              items: const [
+                DropdownMenuItem(
+                  child: Text(''),
+                  value: '',
+                ),
+              ],
               decoration: const InputDecoration(
-                hintText: 'Your Email',
-                labelText: 'Your Email',
+                hintText: 'Industry',
+                labelText: 'Industry',
               ),
             ),
+            const Text(
+                'Adding your industry helps to share more information about yourself and find more connections on RemoteHub, as well as to get recommendations about the jobs relevant for this industry.'),
             const SizedBox(height: 20),
             TextFormField(
               textInputAction: TextInputAction.next,

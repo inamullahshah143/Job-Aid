@@ -2,10 +2,7 @@ import 'package:cool_stepper_reloaded/cool_stepper_reloaded.dart';
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:job_finding/router_name.dart';
 import 'package:job_finding/utils/constants.dart';
-
-import 'social_button.dart';
 
 class RegisterContainer extends StatefulWidget {
   final String? userType;
@@ -109,17 +106,17 @@ class _RegisterContainerState extends State<RegisterContainer> {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, Routes.home);
-              },
-              child: const Text("Register"),
-            ),
-            const Spacer(),
-            const SocialButton(text: 'Or Register in with'),
-            const SizedBox(height: 50),
           ],
+        ),
+      ),
+      CoolStep(
+        content: Column(
+          children: const [],
+        ),
+      ),
+      CoolStep(
+        content: Column(
+          children: const [],
         ),
       ),
     ];

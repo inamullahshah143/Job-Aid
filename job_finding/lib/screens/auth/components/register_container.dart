@@ -185,30 +185,21 @@ class _RegisterContainerState extends State<RegisterContainer> {
             const SizedBox(height: 20),
             TextFormField(
               textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.phone,
+              keyboardType: TextInputType.text,
+              maxLines: 6,
+              minLines: 5,
               decoration: const InputDecoration(
-                hintText: 'Your Phone No.',
-                labelText: 'Your Phone No.',
-              ),
+                  hintText: 'About',
+                  labelText: 'About',
+                  helperText:
+                      'Example: I\'m a Digital Marketing Specialist with 5 years of experience'),
             ),
-            const SizedBox(height: 20),
-            TextFormField(
-              textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
-              decoration: const InputDecoration(
-                hintText: 'Password',
-                labelText: 'Password',
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              textInputAction: TextInputAction.done,
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
-              decoration: const InputDecoration(
-                hintText: 'Confirm Password',
-                labelText: 'Confirm Password',
+            const SizedBox(height: 5),
+            const Text(
+              'Provide details about yourself, your work interest, and your strong sides.',
+              style: TextStyle(
+                color: labelColor,
+                fontSize: 12.0,
               ),
             ),
             const SizedBox(height: 16),

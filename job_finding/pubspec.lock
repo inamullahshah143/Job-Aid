@@ -253,13 +253,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.19"
-  flushbar:
-    dependency: "direct main"
-    description:
-      name: flushbar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.10.4"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -541,13 +534,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
-  ripple_button:
-    dependency: "direct main"
-    description:
-      name: ripple_button
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.3.0"
   rxdart:
     dependency: transitive
     description:

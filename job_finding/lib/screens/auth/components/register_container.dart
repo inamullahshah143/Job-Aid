@@ -1,6 +1,5 @@
 import 'package:cool_stepper_reloaded/cool_stepper_reloaded.dart';
 import 'package:custom_check_box/custom_check_box.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:job_finding/router_name.dart';
@@ -151,20 +150,5 @@ class _RegisterContainerState extends State<RegisterContainer> {
     );
   }
 
-  void _onFinish() {
-    final flush = Flushbar(
-      message: 'Steps completed!',
-      flushbarStyle: FlushbarStyle.FLOATING,
-      margin: const EdgeInsets.all(8.0),
-      borderRadius: 8.0,
-      icon: const Icon(
-        Icons.check_circle_outline_outlined,
-        size: 28.0,
-        color: Colors.green,
-      ),
-      duration: const Duration(seconds: 2),
-      leftBarIndicatorColor: Colors.green,
-    );
-    flush.show(context);
-  }
+  void _onFinish() {}
 }

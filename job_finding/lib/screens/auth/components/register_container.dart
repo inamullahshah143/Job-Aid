@@ -41,12 +41,31 @@ class _RegisterContainerState extends State<RegisterContainer> {
             ),
             const SizedBox(height: 20),
             TextFormField(
-              textInputAction: TextInputAction.done,
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.phone,
+              decoration: const InputDecoration(
+                hintText: 'Your Phone No.',
+                labelText: 'Your Phone No.',
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              textInputAction: TextInputAction.next,
               keyboardType: TextInputType.visiblePassword,
               obscureText: true,
               decoration: const InputDecoration(
                 hintText: 'Password',
                 labelText: 'Password',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: 'Confirm Password',
+                labelText: 'Confirm Password',
               ),
             ),
             const SizedBox(height: 16),
@@ -108,8 +127,57 @@ class _RegisterContainerState extends State<RegisterContainer> {
         ),
       ),
       CoolStep(
+        alignment: Alignment.center,
         content: Column(
-          children: const [],
+          children: [
+            TextFormField(
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.text,
+              decoration: const InputDecoration(
+                hintText: 'Your Name',
+                labelText: 'Your Name',
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                hintText: 'Your Email',
+                labelText: 'Your Email',
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.phone,
+              decoration: const InputDecoration(
+                hintText: 'Your Phone No.',
+                labelText: 'Your Phone No.',
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: 'Password',
+                labelText: 'Password',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: 'Confirm Password',
+                labelText: 'Confirm Password',
+              ),
+            ),
+            const SizedBox(height: 16),
+          ],
         ),
       ),
       CoolStep(
@@ -119,30 +187,29 @@ class _RegisterContainerState extends State<RegisterContainer> {
       ),
     ];
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 24, left: 20, right: 20),
-      child: CoolStepper(
-        showErrorSnackbar: true,
-        hasRoundedCorner: true,
-        isHeaderEnabled: false,
-        onCompleted: _onFinish,
-        contentPadding: const EdgeInsets.only(left: 40, right: 40),
-        config: CoolStepperConfig(
-          finishButton: ElevatedButton(
-            child: const Text('Finish'),
-            onPressed: () => {},
-          ),
-          backButton: ElevatedButton(
-            child: const Text('Back'),
-            onPressed: () => {},
-          ),
-          nextButton: ElevatedButton(
-            child: const Text('\bNext\b'),
-            onPressed: () => {},
-          ),
+    return CoolStepper(
+      showErrorSnackbar: true,
+      hasRoundedCorner: false,
+      isHeaderEnabled: false,
+      onCompleted: _onFinish,
+      contentPadding: const EdgeInsets.only(left: 40, right: 40),
+      config: CoolStepperConfig(
+        stepColor: Colors.white,
+        headerColor: Colors.transparent,
+        finishButton: MaterialButton(
+          child: const Text('Finish'),
+          onPressed: () => {},
         ),
-        steps: steps,
+        backButton: MaterialButton(
+          child: const Text('Back'),
+          onPressed: () => {},
+        ),
+        nextButton: MaterialButton(
+          child: const Text('\bNext\b'),
+          onPressed: () => {},
+        ),
       ),
+      steps: steps,
     );
   }
 

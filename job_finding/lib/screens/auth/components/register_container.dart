@@ -19,8 +19,6 @@ class _RegisterContainerState extends State<RegisterContainer> {
   Widget build(BuildContext context) {
     final steps = [
       CoolStep(
-        title: 'Basic Information',
-        subtitle: 'Please fill some of the basic information to get started',
         alignment: Alignment.center,
         content: Column(
           children: [
@@ -126,6 +124,7 @@ class _RegisterContainerState extends State<RegisterContainer> {
       child: CoolStepper(
         showErrorSnackbar: true,
         hasRoundedCorner: true,
+        isHeaderEnabled: false,
         onCompleted: _onFinish,
         contentPadding: const EdgeInsets.only(left: 40, right: 40),
         config: CoolStepperConfig(

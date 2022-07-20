@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:job_finding/utils/constants.dart';
+import 'package:text_chip_field/text_chip_field.dart';
 
 class RegisterContainer extends StatefulWidget {
   final String? userType;
@@ -17,16 +18,15 @@ class RegisterContainer extends StatefulWidget {
 
 class _RegisterContainerState extends State<RegisterContainer> {
   bool isChecked = false;
-  List<DropdownMenuItem> industries = [
-    const DropdownMenuItem(
-      child: Text(''),
-      value: '',
-    )
-  ];
+  static List<String> languageList = [''];
+  static List<String> levelList = [''];
+  List<DropdownMenuItem> industries = [];
+  List<DropdownMenuItem> countries = [];
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       readIndustries();
+      readCountries();
     });
     super.initState();
   }
@@ -209,8 +209,84 @@ class _RegisterContainerState extends State<RegisterContainer> {
         ),
       ),
       CoolStep(
+        alignment: Alignment.center,
         content: Column(
-          children: const [],
+          children: [
+            DropdownButtonFormField<dynamic>(
+              onChanged: (value) {},
+              items: countries,
+              iconSize: 0.0,
+              isDense: true,
+              value: 'Pakistan',
+              decoration: const InputDecoration(
+                hintText: 'Country',
+                isDense: true,
+                labelText: 'Country',
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.text,
+              decoration: const InputDecoration(
+                hintText: 'City',
+                labelText: 'City (Optional)',
+              ),
+            ),
+            const SizedBox(height: 5),
+            const Text(
+              'Adding your country, city and state or province helps to share more information about yourself and find more connections on RemoteHub. It will also help to get recommendations about local jobs available in your city, and match you with potential employers.',
+              style: TextStyle(
+                color: labelColor,
+                fontSize: 12.0,
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.text,
+              decoration: const InputDecoration(
+                hintText: 'Website',
+                labelText: 'Website (Optional)',
+              ),
+            ),
+            const SizedBox(height: 5),
+            const Text(
+              'If you have a website or a page representing you, we recommend adding it as it helps to share more information about yourself and your skills.',
+              style: TextStyle(
+                color: labelColor,
+                fontSize: 12.0,
+              ),
+            ),
+          ],
+        ),
+      ),
+      CoolStep(
+        alignment: Alignment.center,
+        content: Column(
+          children: [
+            TextChipField(
+              seprator: ",",
+              spacing: 5,
+              decoration: const InputDecoration(
+                hintText: 'Skills',
+                labelText: 'Skills',
+              ),
+              onChanged: (val) {},
+            ),
+            const SizedBox(height: 20),
+            ...getLanguages(),
+            const SizedBox(height: 20),
+            const SizedBox(height: 5),
+            const Text(
+              'When you create an account, your country is automatically indicated on your profile from your geolocation. Please check that it accurately represents your current location, and edit it, if necessary. \n\nAdding your city and state or province helps to share more information about yourself and find more connections on RemoteHub. It will also help to get recommendations about local jobs available in your city, and match you with potential employers.',
+              style: TextStyle(
+                color: labelColor,
+                fontSize: 12.0,
+              ),
+            ),
+            const SizedBox(height: 20),
+          ],
         ),
       ),
     ];
@@ -256,5 +332,177 @@ class _RegisterContainerState extends State<RegisterContainer> {
         ),
       );
     }
+  }
+
+  Future readCountries() async {
+    final String response =
+        await rootBundle.loadString('assets/json/countries.json');
+    final data = await json.decode(response);
+    for (var item in data['data']) {
+      countries.add(
+        DropdownMenuItem(
+          child: Text(
+            item['title'],
+          ),
+          value: item['title'],
+        ),
+      );
+    }
+  }
+
+  List<Widget> getLanguages() {
+    List<Widget> friendsTextFields = [];
+    for (int i = 0; i < languageList.length; i++) {
+      friendsTextFields.add(Material(
+        child: Row(
+          children: [
+            Flexible(
+              child: LanguagesFields(index: i),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Flexible(
+              child: LevelFields(index: i),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: _addRemoveButton(i == languageList.length - 1, i),
+            ),
+          ],
+        ),
+      ));
+    }
+    return friendsTextFields;
+  }
+
+  Widget _addRemoveButton(bool add, int index) {
+    return InkWell(
+      onTap: () {
+        if (add) {
+          languageList.insert(0, '');
+        } else {
+          languageList.removeAt(index);
+        }
+        setState(() {});
+      },
+      child: Container(
+        width: 30,
+        height: 30,
+        decoration: BoxDecoration(
+          color: (add) ? secondaryColor : redColor,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Icon(
+          (add) ? Icons.add : Icons.remove,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+}
+
+class LanguagesFields extends StatefulWidget {
+  final int index;
+
+  const LanguagesFields({Key? key, required this.index}) : super(key: key);
+  @override
+  _LanguagesFieldsState createState() => _LanguagesFieldsState();
+}
+
+class _LanguagesFieldsState extends State<LanguagesFields> {
+  String? languageController;
+
+  @override
+  void initState() {
+    super.initState();
+    languageController = '';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      languageController = _RegisterContainerState.languageList[widget.index];
+    });
+
+    return TextFormField(
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        hintText: 'Language',
+        labelText: 'Language',
+      ),
+      onChanged: (v) =>
+          _RegisterContainerState.languageList[widget.index] = v.toString(),
+      validator: (String? v) {
+        if (v!.isEmpty) {
+          return 'please select language';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class LevelFields extends StatefulWidget {
+  final int index;
+
+  const LevelFields({Key? key, required this.index}) : super(key: key);
+  @override
+  _LevelFieldsState createState() => _LevelFieldsState();
+}
+
+class _LevelFieldsState extends State<LevelFields> {
+  String? levelController;
+
+  @override
+  void initState() {
+    super.initState();
+    levelController = '';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      levelController = _RegisterContainerState.levelList[widget.index];
+    });
+
+    return DropdownButtonFormField(
+      iconSize: 0.0,
+      items: const [
+        DropdownMenuItem(
+          child: Text('Level 1'),
+          value: 'Level 1',
+        ),
+        DropdownMenuItem(
+          child: Text('Level 2'),
+          value: 'Level 2',
+        ),
+        DropdownMenuItem(
+          child: Text('Level 3'),
+          value: 'Level 3',
+        ),
+        DropdownMenuItem(
+          child: Text('Level 4'),
+          value: 'Level 4',
+        ),
+        DropdownMenuItem(
+          child: Text('Level 5'),
+          value: 'Level 5',
+        ),
+      ],
+      onChanged: (v) =>
+          _RegisterContainerState.levelList[widget.index] = v.toString(),
+      decoration: const InputDecoration(
+        hintText: 'Level',
+        labelText: 'Level',
+      ),
+      validator: (String? v) {
+        if (v!.isEmpty) {
+          return 'please select level';
+        }
+        return null;
+      },
+    );
   }
 }

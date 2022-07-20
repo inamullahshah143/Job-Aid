@@ -188,9 +188,11 @@ class _RegisterContainerState extends State<RegisterContainer> {
               keyboardType: TextInputType.text,
               maxLines: 6,
               minLines: 5,
+              textAlignVertical: TextAlignVertical.top,
               decoration: const InputDecoration(
                   hintText: 'About',
                   labelText: 'About',
+                  alignLabelWithHint: true,
                   helperText:
                       'Example: I\'m a Digital Marketing Specialist with 5 years of experience'),
             ),

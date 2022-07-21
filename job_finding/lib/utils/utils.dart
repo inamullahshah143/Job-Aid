@@ -10,7 +10,7 @@ class Utils {
 
   static final _initialTime = TimeOfDay.now();
 
-  static String formatPrice(double price) => '\$${price.toStringAsFixed(2)}';
+  static String formatPrice(double price) => 'PKR ${price.toStringAsFixed(2)}';
 
   static String formatDate(DateTime date) => DateFormat.yMd().format(date);
 

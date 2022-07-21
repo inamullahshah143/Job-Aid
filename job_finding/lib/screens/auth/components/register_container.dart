@@ -292,29 +292,8 @@ class _RegisterContainerState extends State<RegisterContainer> {
       CoolStep(
         alignment: Alignment.center,
         content: Column(
-          children: [
-            TextChipField(
-              seprator: ",",
-              spacing: 5,
-              decoration: const InputDecoration(
-                hintText: 'Skills',
-                labelText: 'Skills',
-              ),
-              onChanged: (value) {},
-            ),
-            const SizedBox(height: 20),
-            ...getLanguages(),
-            const SizedBox(height: 20),
-            const SizedBox(height: 5),
-            const Text(
-              'When you create an account, your country is automatically indicated on your profile from your geolocation. Please check that it accurately represents your current location, and edit it, if necessary. \n\nAdding your city and state or province helps to share more information about yourself and find more connections on RemoteHub. It will also help to get recommendations about local jobs available in your city, and match you with potential employers.',
-              style: TextStyle(
-                color: labelColor,
-                fontSize: 12.0,
-              ),
-            ),
-            const SizedBox(height: 20),
-          ],
+          children: const [
+            ],
         ),
       ),
     ];

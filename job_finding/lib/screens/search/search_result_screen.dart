@@ -21,10 +21,10 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   final _popupController = CustomPopupMenuController();
 
   final filterTags = [
-    'Dhaka',
+    'Taxila',
     'Ux Design',
     'Full Time',
-    'Dhaka',
+    'WAH Cantt',
     'Ux Design',
     'Full Time',
   ];
@@ -61,22 +61,22 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
             ),
             const SizedBox(height: 16),
             const JobCardComponent(
-              address: "Dhaka, Bangladesh",
+              address: "Taxila, Pakistan",
               tags: ["Full time", "In House", "Experience : 3y"],
               title: "Product Design",
             ),
             const JobCardComponent(
-              address: "Dhaka, Bangladesh",
+              address: "Taxila, Pakistan",
               tags: ["Full time", "In House", "Experience : 3y"],
               title: "UX Design",
             ),
             const JobCardComponent(
-              address: "Dhaka, Bangladesh",
+              address: "Taxila, Pakistan",
               tags: ["Full time", "In House", "Experience : 3y"],
               title: "UX Design",
             ),
             const JobCardComponent(
-              address: "Dhaka, Bangladesh",
+              address: "Taxila, Pakistan",
               tags: ["Full time", "In House", "Experience : 3y"],
               title: "UX Design",
             ),

@@ -37,7 +37,7 @@ class _AuthScreenState extends State<AuthScreen> {
               fontWeight: FontWeight.w700,
             ),
             tabs: [
-              Tab(text: 'Log In'),
+              Tab(text: 'LogIn'),
               Tab(text: 'Register'),
             ],
           ),

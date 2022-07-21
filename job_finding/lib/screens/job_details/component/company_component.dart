@@ -108,7 +108,7 @@ class CompanyComponent extends StatelessWidget {
                 size: 14,
               ),
               Text(
-                "House 11, Road 04, Block J, Dhaka 1219",
+                "House 11, Road 04, Block J, Taxila 1219",
                 style: TextStyle(
                     fontSize: 12, height: 1.5, fontWeight: FontWeight.w500),
               )

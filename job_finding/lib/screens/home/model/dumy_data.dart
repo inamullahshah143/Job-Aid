@@ -26,8 +26,8 @@ List<CategoryCartModel> categoryCardList = [
   CategoryCartModel(
     id: 0,
     image: Kimages.figmaIcon,
-    price: 10,
-    address: "Dhaka, Bangladesh",
+    price: 10000,
+    address: "Islamabad, Pakistan",
     title: "UX Desinger",
     tags: ["Full Time", "Remote"],
     color: const Color(0xff4FAA89),
@@ -35,8 +35,8 @@ List<CategoryCartModel> categoryCardList = [
   CategoryCartModel(
     id: 1,
     image: Kimages.shopifyIcon,
-    price: 20,
-    address: "Dhaka, Bangladesh",
+    price: 20000,
+    address: "Lahore, Pakistan",
     title: "Web Desinger",
     tags: ["Full Time", "Remote"],
     color: const Color.fromARGB(255, 109, 108, 108),
@@ -44,8 +44,8 @@ List<CategoryCartModel> categoryCardList = [
   CategoryCartModel(
     id: 2,
     image: Kimages.shopifyIcon,
-    price: 15,
-    address: "Dhaka, Bangladesh",
+    price: 15000,
+    address: "Karachi, Pakistan",
     title: "UI Desinger",
     tags: ["Full Time", "Remote"],
     color: const Color.fromARGB(255, 247, 224, 224),

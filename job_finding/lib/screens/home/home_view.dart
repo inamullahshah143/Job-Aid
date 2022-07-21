@@ -66,7 +66,7 @@ class HomeView extends StatelessWidget {
           suffixIconConstraints:
               const BoxConstraints(maxHeight: 40, maxWidth: 40),
           suffixIcon: GestureDetector(
-            onTap: () => Navigator.pushNamed(context, Routes.search),
+            // onTap: () => Navigator.pushNamed(context, Routes.search),
             child: Container(
               margin: const EdgeInsets.only(right: 8),
               child: SvgPicture.asset(

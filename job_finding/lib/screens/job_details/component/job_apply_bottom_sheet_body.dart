@@ -156,7 +156,7 @@ class JobApplyBottomSheetBody extends StatelessWidget {
             ),
             SizedBox(height: 4),
             Text(
-              "Dhaka, Bangladesh",
+              "Taxila, Pakistan",
               style: TextStyle(fontSize: 12, color: paragraphColor),
             )
           ],

@@ -84,7 +84,7 @@ class MyTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(double.infinity, 56),
-        primary: blackColor,
+        backgroundColor: blackColor,
         textStyle: const TextStyle(
           fontSize: 16,
           height: 1.5,

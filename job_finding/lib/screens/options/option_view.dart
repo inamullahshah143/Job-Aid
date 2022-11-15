@@ -44,7 +44,7 @@ class OptionView extends StatelessWidget {
             ),
             child: ElevatedButton(
               onPressed: () {},
-              style: ElevatedButton.styleFrom(primary: Colors.black),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

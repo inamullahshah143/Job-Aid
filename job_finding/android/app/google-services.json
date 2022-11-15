@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "527123211415",
-    "project_id": "job-aid-8a0e7",
-    "storage_bucket": "job-aid-8a0e7.appspot.com"
+    "project_number": "168751502154",
+    "project_id": "job-aid-30215",
+    "storage_bucket": "job-aid-30215.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:527123211415:android:05eb7f24e63109e74cf5d2",
+        "mobilesdk_app_id": "1:168751502154:android:5af9647b304d1ef06527b3",
         "android_client_info": {
           "package_name": "com.zence.job_aid"
         }
       },
       "oauth_client": [
         {
-          "client_id": "527123211415-ummct4qk877sad72906avoi9kutfjcud.apps.googleusercontent.com",
+          "client_id": "168751502154-chjo29g5p9jq0fqbqoqljdvggk6d9g81.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAUmgJhE097ZQAWhEDMxmwwx732uftQznw"
+          "current_key": "AIzaSyC8bIuUWup2_x041xLkYqlGQDy7TyHhGak"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "527123211415-ummct4qk877sad72906avoi9kutfjcud.apps.googleusercontent.com",
+              "client_id": "168751502154-chjo29g5p9jq0fqbqoqljdvggk6d9g81.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

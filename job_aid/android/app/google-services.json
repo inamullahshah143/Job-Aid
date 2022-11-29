@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "144113306466",
+    "project_id": "job-aid-1f997",
+    "storage_bucket": "job-aid-1f997.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144113306466:android:ec908d141cbe0d247cfa3b",
+        "android_client_info": {
+          "package_name": "com.zence.job_aid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144113306466-esnp4rbdog8mtbn2u8j1csba6qpfmj6i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5sUHiv00qmo_CDdaJpr1k94NnffqKWfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144113306466-esnp4rbdog8mtbn2u8j1csba6qpfmj6i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

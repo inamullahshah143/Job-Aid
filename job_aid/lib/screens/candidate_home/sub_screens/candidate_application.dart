@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:job_aid/constants/colors.dart';
-import 'package:job_aid/constants/k_images.dart';
 import 'package:job_aid/screens/candidate_home/controller/application_controller.dart';
 
 class CandidateApplication extends StatelessWidget {

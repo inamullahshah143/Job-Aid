@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,9 +32,9 @@ class _CandidateRegistrationState extends State<CandidateRegistration> {
   final isChecked = false.obs;
   final isVisible = false.obs;
   final industries = <DropdownMenuItem>[].obs;
-  final cities = <DropdownMenuItem>[].obs;
-  final provinces = <DropdownMenuItem>[].obs;
-  final province = 'Punjab'.obs;
+  String? city;
+  String? province;
+  String? country;
   final gender = ''.obs;
   File? profilePicture;
   File? cvFile;
@@ -45,8 +46,6 @@ class _CandidateRegistrationState extends State<CandidateRegistration> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       readIndustries();
-      readCities();
-      readProvince();
     });
     super.initState();
   }
@@ -57,40 +56,6 @@ class _CandidateRegistrationState extends State<CandidateRegistration> {
     final data = await json.decode(response);
     for (var item in data['data']) {
       industries.add(
-        DropdownMenuItem(
-          child: Text(
-            item['title'],
-          ),
-          value: item['title'],
-        ),
-      );
-    }
-  }
-
-  Future readProvince() async {
-    final String response =
-        await rootBundle.loadString('assets/json/province.json');
-    final data = await json.decode(response);
-    provinces.clear();
-    for (var item in data['data']) {
-      provinces.add(
-        DropdownMenuItem(
-          child: Text(
-            item['title'],
-          ),
-          value: item['title'],
-        ),
-      );
-    }
-  }
-
-  Future readCities() async {
-    final String response =
-        await rootBundle.loadString('assets/json/cities.json');
-    final data = await json.decode(response);
-    cities.clear();
-    for (var item in data['data'][province.value]) {
-      cities.add(
         DropdownMenuItem(
           child: Text(
             item['title'],
@@ -179,6 +144,7 @@ class _CandidateRegistrationState extends State<CandidateRegistration> {
                             'complete_address': formData['complete_address'],
                             'city': formData['city'],
                             'province': formData['province'],
+                            'country': formData['country'],
                             'terms&conditions': formData['terms&conditions'],
                             'industry': formData['industry'],
                           }).then((record) {
@@ -441,53 +407,52 @@ class _CandidateRegistrationState extends State<CandidateRegistration> {
                       child: Column(
                         children: [
                           const SizedBox(height: 20),
-                          TextFormField(
-                            onChanged: (value) {
-                              formData['country'] = value;
-                            },
-                            textInputAction: TextInputAction.next,
-                            keyboardType: TextInputType.text,
-                            initialValue: 'Pakistan',
-                            enabled: false,
-                            decoration: const InputDecoration(
-                              hintText: 'Country',
-                              labelText: 'Country',
+                          CSCPicker(
+                            defaultCountry: DefaultCountry.Pakistan,
+                            dropdownDecoration: BoxDecoration(),
+                            disabledDropdownDecoration: BoxDecoration(),
+                            showStates: true,
+                            showCities: true,
+                            flagState: CountryFlag.SHOW_IN_DROP_DOWN_ONLY,
+                            countrySearchPlaceholder: "Country",
+                            stateSearchPlaceholder: "State",
+                            citySearchPlaceholder: "City",
+                            countryDropdownLabel: "Country",
+                            stateDropdownLabel: "State",
+                            cityDropdownLabel: "City",
+                            selectedItemStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          Obx(() {
-                            return DropdownButtonFormField(
-                              onChanged: (value) {
-                                province.value = value;
-                                readCities();
+                            dropdownHeadingStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                            dropdownItemStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                            ),
+                            dropdownDialogRadius: 10.0,
+                            searchBarRadius: 10.0,
+                            onCountryChanged: (value) {
+                              setState(() {
+                                formData['country'] = value;
+                                country = value;
+                              });
+                            },
+                            onStateChanged: (value) {
+                              setState(() {
                                 formData['province'] = value;
-                              },
-                              items: provinces,
-                              iconSize: 0.0,
-                              isDense: true,
-                              decoration: const InputDecoration(
-                                hintText: 'Province',
-                                isDense: true,
-                                labelText: 'Province',
-                              ),
-                            );
-                          }),
-                          const SizedBox(height: 20),
-                          Obx(() {
-                            return DropdownButtonFormField(
-                              onChanged: (value) {
+                                province = value;
+                              });
+                            },
+                            onCityChanged: (value) {
+                              setState(() {
                                 formData['city'] = value;
-                              },
-                              items: cities,
-                              iconSize: 0.0,
-                              isDense: true,
-                              decoration: const InputDecoration(
-                                hintText: 'City',
-                                isDense: true,
-                                labelText: 'City',
-                              ),
-                            );
-                          }),
+                                city = value;
+                              });
+                            },
+                          ),
                           const SizedBox(height: 20),
                           TextFormField(
                             onChanged: (value) {

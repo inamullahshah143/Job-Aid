@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
@@ -20,6 +19,7 @@ import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_skill
 import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_work_experience.dart';
 import 'package:job_aid/utils/auth_helper.dart';
 
+import 'package:csc_picker/csc_picker.dart';
 import '../components/profile_components.dart';
 
 class ProfileSetupScreen extends StatefulWidget {
@@ -30,12 +30,6 @@ class ProfileSetupScreen extends StatefulWidget {
 }
 
 class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
-  final cities = <DropdownMenuItem>[].obs;
-
-  final provinces = <DropdownMenuItem>[].obs;
-
-  final province = 'Punjab'.obs;
-
   final String initialCountry = 'PK';
 
   final PhoneNumber number = PhoneNumber(
@@ -47,46 +41,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
 
   Map<String, dynamic> expectedSalary = {};
 
-  Future readProvince() async {
-    final String response =
-        await rootBundle.loadString('assets/json/province.json');
-    final data = await json.decode(response);
-    provinces.clear();
-    for (var item in data['data']) {
-      provinces.add(
-        DropdownMenuItem(
-          child: Text(
-            item['title'],
-          ),
-          value: item['title'],
-        ),
-      );
-    }
-  }
-
-  Future readCities() async {
-    final String response =
-        await rootBundle.loadString('assets/json/cities.json');
-    final data = await json.decode(response);
-    cities.clear();
-    for (var item in data['data'][province.value]) {
-      cities.add(
-        DropdownMenuItem(
-          child: Text(
-            item['title'],
-          ),
-          value: item['title'],
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      readCities();
-      readProvince();
-    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.transparent,
@@ -191,68 +147,44 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                 ),
                               ),
                             ),
-                            Obx(() {
-                              return DropdownButtonFormField(
-                                value: jsonDecode(prefs!
-                                    .getString('userDetails')!)['province'],
-                                onChanged: (value) {
-                                  province.value = value;
-                                  readCities();
-                                },
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: AppColor.blackColor,
-                                ),
-                                items: provinces,
-                                isDense: true,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor:
-                                      AppColor.placeholder.withOpacity(0.15),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  contentPadding: const EdgeInsets.all(12.5),
-                                  hintText: 'Province',
-                                  isDense: true,
-                                  hintStyle: TextStyle(
-                                    color: AppColor.placeholder,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              );
-                            }),
                             const SizedBox(height: 20),
-                            Obx(() {
-                              return DropdownButtonFormField(
-                                value: jsonDecode(
-                                    prefs!.getString('userDetails')!)['city'],
-                                onChanged: (value) {},
-                                items: cities,
-                                isDense: true,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: AppColor.blackColor,
-                                ),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor:
-                                      AppColor.placeholder.withOpacity(0.15),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  contentPadding: const EdgeInsets.all(12.5),
-                                  hintText: 'City',
-                                  isDense: true,
-                                  hintStyle: TextStyle(
-                                    color: AppColor.placeholder,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              );
-                            }),
+                            CSCPicker(
+                              currentCity:  jsonDecode(prefs!.getString('userDetails')!)[
+                                      'city'],
+                              currentCountry:  jsonDecode(prefs!.getString('userDetails')!)[
+                                      'country'],
+                              currentState:  jsonDecode(prefs!.getString('userDetails')!)[
+                                      'province'],
+                              defaultCountry: DefaultCountry.Pakistan,
+                              dropdownDecoration: BoxDecoration(),
+                              disabledDropdownDecoration: BoxDecoration(),
+                              showStates: true,
+                              showCities: true,
+                              flagState: CountryFlag.SHOW_IN_DROP_DOWN_ONLY,
+                              countrySearchPlaceholder: "Country",
+                              stateSearchPlaceholder: "State",
+                              citySearchPlaceholder: "City",
+                              countryDropdownLabel: "Country",
+                              stateDropdownLabel: "State",
+                              cityDropdownLabel: "City",
+                              selectedItemStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                              ),
+                              dropdownHeadingStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
+                              dropdownItemStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                              ),
+                              dropdownDialogRadius: 10.0,
+                              searchBarRadius: 10.0,
+                              onCountryChanged: (value) {},
+                              onStateChanged: (value) {},
+                              onCityChanged: (value) {},
+                            ),
                             const SizedBox(height: 20),
                             TextFormField(
                               initialValue:

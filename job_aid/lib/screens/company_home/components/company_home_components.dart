@@ -8,7 +8,6 @@ import 'package:job_aid/screens/company_home/sub_screens/update_job_post_form.da
 
 class CompnayHomeComponents {
   Widget jobPostCard({
-    required Function refresh,
     required jobDetails,
     required String postId,
     required String jobTitle,
@@ -47,7 +46,6 @@ class CompnayHomeComponents {
                     Get.to(UpdateJobPostForm(
                       data: jobDetails,
                       postId: postId,
-                      refresh: refresh,
                     ));
                   },
                 ),
@@ -181,7 +179,6 @@ class CompnayHomeComponents {
                               .collection('jobs')
                               .doc(postId)
                               .update({'publish_status': 1}).whenComplete(() {
-                            refresh;
                             Navigator.pop(context, true);
                           });
                         } else {
@@ -189,7 +186,6 @@ class CompnayHomeComponents {
                               .collection('jobs')
                               .doc(postId)
                               .update({'publish_status': 0}).whenComplete(() {
-                            refresh;
                             Navigator.pop(context, true);
                           });
                         }
@@ -219,10 +215,7 @@ class CompnayHomeComponents {
                         await FirebaseFirestore.instance
                             .collection('jobs')
                             .doc(postId)
-                            .delete()
-                            .whenComplete(() {
-                          refresh;
-                        });
+                            .delete();
                       },
                       child: const Text("Delete"),
                     ),

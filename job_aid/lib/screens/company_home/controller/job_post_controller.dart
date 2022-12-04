@@ -5,7 +5,7 @@ import 'package:job_aid/main.dart';
 import '../components/company_home_components.dart';
 
 class JobPostController {
-  Stream<List<Widget>> getPostedJobs(context, Function refresh) async* {
+  Stream<List<Widget>> getPostedJobs(context) async* {
     List<Widget> x = [];
     await FirebaseFirestore.instance
         .collection('jobs')
@@ -13,18 +13,18 @@ class JobPostController {
         .get()
         .then((value) {
       for (var item in value.docs) {
+        print(item.data());
         x.add(
           CompnayHomeComponents().jobPostCard(
-            refresh: refresh,
             postId: item.id,
             jobDetails: item.data(),
-            jobDescription: item.data()['job_descriptions'],
+            jobDescription: item.data()['job_descriptions']??'',
             context: context,
-            employmentType: item.data()['employment_type'],
-            jobTitle: item.data()['job_title'],
-            jobType: item.data()['job_type'],
-            maximumSalary: item.data()['maximum_salary'],
-            minimumSalary: item.data()['minimum_salary'],
+            employmentType: item.data()['employment_type']??'',
+            jobTitle: item.data()['job_title']??'',
+            jobType: item.data()['job_type']??'',
+            maximumSalary: item.data()['maximum_salary']??'',
+            minimumSalary: item.data()['minimum_salary']??'',
           ),
         );
       }

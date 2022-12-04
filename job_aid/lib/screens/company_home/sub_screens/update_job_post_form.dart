@@ -12,12 +12,10 @@ import 'package:job_aid/main.dart';
 class UpdateJobPostForm extends StatefulWidget {
   final data;
   final String postId;
-  final Function refresh;
   const UpdateJobPostForm({
     super.key,
     required this.data,
     required this.postId,
-    required this.refresh,
   });
 
   @override
@@ -748,7 +746,6 @@ class _UpdateJobPostFormState extends State<UpdateJobPostForm> {
                   .doc(widget.postId)
                   .update(jobData)
                   .then((value) async {
-                widget.refresh;
                 Navigator.pop(context, true);
                 Navigator.pop(context, true);
                 Components.showSnackBar(

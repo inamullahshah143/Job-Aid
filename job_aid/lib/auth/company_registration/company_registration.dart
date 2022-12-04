@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,6 +20,7 @@ import 'package:job_aid/screens/company_home/company_dashboard.dart';
 import 'package:job_aid/utils/auth_helper.dart';
 import 'package:job_aid/utils/helper.dart';
 import 'package:job_aid/utils/upload_file.dart';
+import 'package:uuid/uuid.dart';
 
 class CompanyRegistration extends StatefulWidget {
   const CompanyRegistration({super.key});
@@ -38,6 +40,7 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
   String? country;
   String? city;
   String? province;
+  List placesList = [];
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController conf_password = TextEditingController();
@@ -591,6 +594,7 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
                           TextFormField(
                             onChanged: (value) {
                               formData['complete_address'] = value;
+                              getSuggestion(value);
                             },
                             controller: company_address,
                             validator: (value) {
@@ -644,6 +648,24 @@ class _CompanyRegistrationState extends State<CompanyRegistration> {
         company_logo = File(pickedFile.path);
         formData['company_logo'] = company_logo;
       });
+    }
+  }
+
+  void getSuggestion(String input) async {
+    final _sessionToken = Uuid().v4();
+    String kPLACES_API_KEY = "AIzaSyCqv75u4faKtrzJDtN6_GPKItd8eox6MuA";
+    String baseURL =
+        'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+    String request =
+        '$baseURL?input=$input&key=$kPLACES_API_KEY&sessiontoken=$_sessionToken';
+    var response = await http.get(Uri.tryParse(request)!);
+    if (response.statusCode == 200) {
+      setState(() {
+        placesList = json.decode(response.body)['predictions'];
+        print(placesList);
+      });
+    } else {
+      throw Exception('Failed to load predictions');
     }
   }
 }

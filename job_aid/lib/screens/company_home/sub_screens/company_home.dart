@@ -12,15 +12,7 @@ class CompanyHomeScreen extends StatefulWidget {
 }
 
 class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
-  refresh() {
-    setState(() {});
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +20,7 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: StreamBuilder(
-          stream: JobPostController().getPostedJobs(context, refresh),
+          stream: JobPostController().getPostedJobs(context),
           builder: (context, snapshot) {
             return snapshot.connectionState == ConnectionState.waiting
                 ? const Center(

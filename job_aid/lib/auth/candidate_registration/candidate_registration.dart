@@ -31,7 +31,7 @@ class CandidateRegistration extends StatefulWidget {
 class _CandidateRegistrationState extends State<CandidateRegistration> {
   final isChecked = false.obs;
   final isVisible = false.obs;
-  final industries = <DropdownMenuItem>[].obs;
+  final industries = <DropdownMenuItem>[];
   String? city;
   String? province;
   String? country;

@@ -22,7 +22,7 @@ class UpdateJobPostForm extends StatefulWidget {
 
 class _UpdateJobPostFormState extends State<UpdateJobPostForm> {
   final _items = <String>[].obs;
-  final industries = <DropdownMenuItem>[].obs;
+  final industries = <DropdownMenuItem>[];
   Map<String, dynamic> jobData = {};
   TextEditingController? jobTitle;
   TextEditingController? jobDescriptions;
@@ -421,35 +421,33 @@ class _UpdateJobPostFormState extends State<UpdateJobPostForm> {
                   ),
                 ),
                 SizedBox(height: 20),
-                Obx(() {
-                  return DropdownButtonFormField(
-                    value: widget.data['job_category'],
-                    onChanged: (value) {
-                      jobData['job_category'] = value;
-                    },
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColor.blackColor,
+                DropdownButtonFormField(
+                  value: widget.data['job_category'],
+                  onChanged: (value) {
+                    jobData['job_category'] = value;
+                  },
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColor.blackColor,
+                  ),
+                  items: industries,
+                  isDense: true,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: AppColor.placeholder.withOpacity(0.15),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
                     ),
-                    items: industries,
+                    contentPadding: const EdgeInsets.all(12.5),
+                    hintText: 'Job Category',
                     isDense: true,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColor.placeholder.withOpacity(0.15),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                      contentPadding: const EdgeInsets.all(12.5),
-                      hintText: 'Job Category',
-                      isDense: true,
-                      hintStyle: TextStyle(
-                        color: AppColor.placeholder,
-                        fontSize: 14,
-                      ),
+                    hintStyle: TextStyle(
+                      color: AppColor.placeholder,
+                      fontSize: 14,
                     ),
-                  );
-                }),
+                  ),
+                ),
                 SizedBox(height: 20),
                 DropdownButtonFormField(
                   value: widget.data['education'],

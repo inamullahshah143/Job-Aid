@@ -32,7 +32,7 @@ class CompanyRegistration extends StatefulWidget {
 class _CompanyRegistrationState extends State<CompanyRegistration> {
   final isChecked = false.obs;
   final isVisible = false.obs;
-  final industries = <DropdownMenuItem>[].obs;
+  final industries = <DropdownMenuItem>[];
   File? company_logo;
   final String initialCountry = 'PK';
   final PhoneNumber number = PhoneNumber(isoCode: 'PK', dialCode: '+92');

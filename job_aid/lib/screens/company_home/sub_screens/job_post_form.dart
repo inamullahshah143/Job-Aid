@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chip_tags/flutter_chip_tags.dart';
@@ -18,7 +16,7 @@ class JobPostForm extends StatefulWidget {
 
 class _JobPostFormState extends State<JobPostForm> {
   final _items = <String>[].obs;
-  final industries = <DropdownMenuItem>[].obs;
+  final industries = <DropdownMenuItem>[];
   Map<String, dynamic> jobData = {};
   @override
   void initState() {
@@ -346,6 +344,8 @@ class _JobPostFormState extends State<JobPostForm> {
                     ),
                     contentPadding: const EdgeInsets.all(12.5),
                     hintText: 'Required Skills',
+                    helperText:
+                        'You can add multiple skills by using "," as seprator',
                     hintStyle: TextStyle(
                       color: AppColor.placeholder,
                       fontSize: 14,
@@ -380,34 +380,32 @@ class _JobPostFormState extends State<JobPostForm> {
                   ),
                 ),
                 SizedBox(height: 20),
-                Obx(() {
-                  return DropdownButtonFormField(
-                    onChanged: (value) {
-                      jobData['job_category'] = value;
-                    },
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColor.blackColor,
+                DropdownButtonFormField(
+                  onChanged: (value) {
+                    jobData['job_category'] = value;
+                  },
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColor.blackColor,
+                  ),
+                  items: industries,
+                  isDense: true,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: AppColor.placeholder.withOpacity(0.15),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
                     ),
-                    items: industries,
+                    contentPadding: const EdgeInsets.all(12.5),
+                    hintText: 'Job Category',
                     isDense: true,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColor.placeholder.withOpacity(0.15),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                      contentPadding: const EdgeInsets.all(12.5),
-                      hintText: 'Job Category',
-                      isDense: true,
-                      hintStyle: TextStyle(
-                        color: AppColor.placeholder,
-                        fontSize: 14,
-                      ),
+                    hintStyle: TextStyle(
+                      color: AppColor.placeholder,
+                      fontSize: 14,
                     ),
-                  );
-                }),
+                  ),
+                ),
                 SizedBox(height: 20),
                 DropdownButtonFormField(
                   onChanged: (value) {

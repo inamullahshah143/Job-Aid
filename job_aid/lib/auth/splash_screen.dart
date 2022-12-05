@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:job_aid/auth/onbording_screen.dart';
 import 'package:job_aid/constants/colors.dart';
 import 'package:job_aid/constants/k_images.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    getCurrentLocationData();
     Timer(const Duration(seconds: 3), () async {
       Get.off(const OnbordingScreen());
     });
@@ -52,5 +54,17 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  Future getCurrentLocationData() async {
+    await Permission.locationWhenInUse.request().then((status) {
+      if (status == PermissionStatus.granted) {
+        return status;
+      } else if (status == PermissionStatus.denied) {
+        return status;
+      } else if (status == PermissionStatus.permanentlyDenied) {
+        return status;
+      }
+    });
   }
 }

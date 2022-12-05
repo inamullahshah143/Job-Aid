@@ -67,6 +67,7 @@ dependencies:
   permission_handler: ^10.2.0
   csc_picker: ^0.2.6
   http: ^0.13.5
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:

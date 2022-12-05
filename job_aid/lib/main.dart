@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth/splash_screen.dart';
@@ -12,16 +11,6 @@ import 'constants/colors.dart';
 SharedPreferences? prefs;
 FirebaseAuth? _auth;
 get user => _auth!.currentUser;
-Future getCurrentLocationData() async {
-  final status = await Permission.location.status;
-  if (status == PermissionStatus.granted) {
-    return status;
-  } else if (status == PermissionStatus.denied) {
-    return status;
-  } else if (status == PermissionStatus.permanentlyDenied) {
-    return status;
-  }
-}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +23,6 @@ Future<void> main() async {
     _auth = FirebaseAuth.instance;
   });
   prefs = await SharedPreferences.getInstance();
-  getCurrentLocationData();
   runApp(const MyApp());
 }
 

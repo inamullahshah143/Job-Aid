@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_chip_tags/flutter_chip_tags.dart';
 import 'package:get/get.dart';
 import 'package:job_aid/constants/colors.dart';
 import 'package:job_aid/constants/components.dart';
+import 'package:job_aid/constants/industries_list.dart';
 import 'package:job_aid/main.dart';
 
 class UpdateJobPostForm extends StatefulWidget {
@@ -55,23 +53,19 @@ class _UpdateJobPostFormState extends State<UpdateJobPostForm> {
         TextEditingController(text: widget.data['seats_available']);
     companyWebsite =
         TextEditingController(text: widget.data['company_website']);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      readIndustries();
-    });
+
+    readIndustries();
     super.initState();
   }
 
-  Future readIndustries() async {
-    final String response =
-        await rootBundle.loadString('assets/json/industries.json');
-    final data = await json.decode(response);
-    for (var item in data['data']) {
+  void readIndustries() {
+    for (var item in IndustriesList.industries) {
       industries.add(
         DropdownMenuItem(
           child: Text(
-            item['title'],
+            item,
           ),
-          value: item['title'],
+          value: item,
         ),
       );
     }

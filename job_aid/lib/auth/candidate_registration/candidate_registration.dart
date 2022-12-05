@@ -5,13 +5,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:job_aid/constants/colors.dart';
 import 'package:job_aid/constants/components.dart';
+import 'package:job_aid/constants/industries_list.dart';
 import 'package:job_aid/constants/k_images.dart';
 import 'package:job_aid/constants/models/step_model.dart';
 import 'package:job_aid/constants/multi_step_form.dart';
@@ -44,23 +44,18 @@ class _CandidateRegistrationState extends State<CandidateRegistration> {
   Map<String, dynamic> formData = {};
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      readIndustries();
-    });
+    readIndustries();
     super.initState();
   }
 
-  Future readIndustries() async {
-    final String response =
-        await rootBundle.loadString('assets/json/industries.json');
-    final data = await json.decode(response);
-    for (var item in data['data']) {
+  void readIndustries() {
+    for (var item in IndustriesList.industries) {
       industries.add(
         DropdownMenuItem(
           child: Text(
-            item['title'],
+            item,
           ),
-          value: item['title'],
+          value: item,
         ),
       );
     }

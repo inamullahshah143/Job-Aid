@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          Get.to( ForgetPassword());
+                          Get.to(ForgetPassword());
                         },
                         child: const AutoSizeText(
                           'Forgot Password?',
@@ -258,15 +258,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
             ),
-            const SocialButton(text: 'Or log in with'),
+            SocialButton(
+              text: 'Or log in with',
+              onTapFacebook: () {
+                Components.showSnackBar(
+                    context, 'Facebook login currently not available');
+              },
+              onTapGoogle: () {
+                Components.showSnackBar(
+                    context, 'Gmail login currently not available');
+              },
+            ),
             const SizedBox(height: 50),
           ],
         ),
       ),
     );
   }
-
- 
 }
 
 class SocialButton extends StatelessWidget {

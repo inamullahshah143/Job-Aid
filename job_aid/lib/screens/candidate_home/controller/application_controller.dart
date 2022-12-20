@@ -25,9 +25,9 @@ class ApplicationController {
               .then((jobData) {
             x.add(
               ApplicationsScreenComponents().applicationsCard(
-                jobTitle: jobData.data()!['job_title'],
-                companyName: companyData.data()!['company_name'],
-                companyLogo: companyData.data()!['company_logo'],
+                jobTitle: jobData.data()!['job_title']??'',
+                companyName: companyData.data()!['company_name']??'',
+                companyLogo: companyData.data()!['company_logo']??'',
                 applicationsStatus: item.data()['status'] ?? "",
                 context: context,
               ),

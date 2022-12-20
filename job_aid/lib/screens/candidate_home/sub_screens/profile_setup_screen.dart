@@ -881,12 +881,12 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             jsonDecode(prefs!.getString('userDetails')!)[
-                                        'certificate'] !=
+                                        'projects'] !=
                                     null
                                 ? ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: jsonDecode(prefs!.getString(
-                                            'userDetails')!)['certificate']
+                                            'userDetails')!)['projects']
                                         .length,
                                     itemBuilder: (context, index) {
                                       return Padding(

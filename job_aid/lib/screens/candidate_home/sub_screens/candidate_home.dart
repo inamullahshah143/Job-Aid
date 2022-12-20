@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:job_aid/constants/colors.dart';
 import 'package:job_aid/constants/k_images.dart';
 import 'package:job_aid/screens/candidate_home/controller/jobs_controller.dart';
+import 'package:job_aid/screens/candidate_home/sub_screens/all_application.dart';
 
 class CandidateHomeScreen extends StatelessWidget {
   const CandidateHomeScreen({super.key});
@@ -75,7 +77,11 @@ class CandidateHomeScreen extends StatelessWidget {
                                       ),
                                       MaterialButton(
                                         padding: EdgeInsets.zero,
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Get.to(AllApplication(
+                                            isRecomended: true,
+                                          ));
+                                        },
                                         child: Text(
                                           'See All',
                                           style: TextStyle(
@@ -134,7 +140,11 @@ class CandidateHomeScreen extends StatelessWidget {
                                       ),
                                       MaterialButton(
                                         padding: EdgeInsets.zero,
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Get.to(AllApplication(
+                                            isRecomended: false,
+                                          ));
+                                        },
                                         child: Text(
                                           'See All',
                                           style: TextStyle(

@@ -16,8 +16,13 @@ class AddSkills extends StatefulWidget {
 }
 
 class _AddSkillsState extends State<AddSkills> {
-  List<String>? _items =
-      List<String>.from(jsonDecode(prefs!.getString('userDetails')!)['skills']);
+  List<String>? _items;
+  @override
+  void initState() {
+    _items = List<String>.from(
+        jsonDecode(prefs!.getString('userDetails')!)['skills']??[]);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

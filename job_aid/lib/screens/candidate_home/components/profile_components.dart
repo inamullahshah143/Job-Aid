@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:get/get.dart';
 import 'package:job_aid/constants/colors.dart';
+
+import '../sub_screens/profile_sub/add_work_experience.dart';
 
 class ProfileComponents {
   Widget workExperienceCard({
+    required Map<String, dynamic> data,
     required String jobTitle,
     required String companyName,
     required String from,
@@ -26,7 +30,12 @@ class ProfileComponents {
               size: 16,
               color: AppColor.primaryColor,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.to(AddWorkExperience(
+                isUpdate: true,
+                data: data,
+              ));
+            },
           ),
           contentPadding: EdgeInsets.zero,
           title: Padding(

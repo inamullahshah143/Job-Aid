@@ -10,7 +10,9 @@ import 'package:job_aid/constants/components.dart';
 import 'package:job_aid/main.dart';
 
 class AddWorkExperience extends StatefulWidget {
-  AddWorkExperience({super.key});
+  final bool isUpdate;
+  final Map<String, dynamic> data;
+  AddWorkExperience({super.key, required this.isUpdate, required this.data});
 
   @override
   State<AddWorkExperience> createState() => _AddWorkExperienceState();
@@ -21,11 +23,20 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
 
   final now = DateTime.now();
 
-  final TextEditingController fromDate = TextEditingController();
+  TextEditingController? fromDate;
 
-  final TextEditingController toDate = TextEditingController();
+  TextEditingController? toDate;
 
   Map<String, dynamic> workExperience = {};
+
+  @override
+  void initState() {
+    workExperience = widget.data;
+    fromDate = TextEditingController(text: workExperience['date_from']);
+    toDate = TextEditingController(text: workExperience['date_to']);
+    currentlyWorking.value = workExperience['currently_working'] ?? false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +71,8 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  controller:
+                      TextEditingController(text: workExperience['job_title']),
                   onChanged: (value) {
                     workExperience['job_title'] = value;
                   },
@@ -86,6 +99,8 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller: TextEditingController(
+                      text: workExperience['compnay_name']),
                   onChanged: (value) {
                     workExperience['compnay_name'] = value;
                   },
@@ -197,6 +212,8 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                 }),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller: TextEditingController(
+                      text: workExperience['job_description']),
                   onChanged: (value) {
                     workExperience['job_description'] = value;
                   },
@@ -225,6 +242,7 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                 ),
                 const SizedBox(height: 20),
                 DropdownButtonFormField(
+                  value: workExperience['employment_type'],
                   onChanged: (value) {
                     workExperience['employment_type'] = value;
                   },
@@ -269,6 +287,8 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller:
+                      TextEditingController(text: workExperience['location']),
                   onChanged: (value) {
                     workExperience['location'] = value;
                   },
@@ -295,6 +315,7 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                 ),
                 const SizedBox(height: 20),
                 DropdownButtonFormField(
+                  value: workExperience['job_level'],
                   onChanged: (value) {
                     workExperience['job_level'] = value;
                   },
@@ -339,6 +360,8 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller:
+                      TextEditingController(text: workExperience['job_function']),
                   onChanged: (value) {
                     workExperience['job_function'] = value;
                   },
@@ -365,6 +388,8 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller: TextEditingController(
+                      text: workExperience['salary']),
                   onChanged: (value) {
                     workExperience['salary'] = value;
                   },
@@ -395,6 +420,7 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                     Flexible(
                       flex: 1,
                       child: DropdownButtonFormField(
+                        value: workExperience['currency'],
                         onChanged: (value) {
                           workExperience['currency'] = value;
                         },
@@ -434,6 +460,7 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                     Flexible(
                       flex: 1,
                       child: DropdownButtonFormField(
+                        value: workExperience['frequency'],
                         onChanged: (value) {
                           workExperience['frequency'] = value;
                         },
@@ -517,7 +544,6 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                     prefs!.getString('userDetails')!)['work_experience'] ??
                 [];
             workExperiences.add(workExperience);
-
             await FirebaseFirestore.instance
                 .collection('user_record')
                 .doc(user.uid)
@@ -535,7 +561,9 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
               Components.showSnackBar(context, e.toString());
             });
           },
-          child: const Text("Add Work Experience"),
+          child: Text(widget.isUpdate
+              ? "Update Work Experience"
+              : "Add Work Experience"),
         ),
       ),
     );
@@ -550,7 +578,7 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
         title: Text("From"),
         selectedTextStyle: TextStyle(color: AppColor.primaryColor),
         onConfirm: (Picker picker, List value) {
-          fromDate.text = DateFormat.yMMM()
+          fromDate!.text = DateFormat.yMMM()
               .format((picker.adapter as DateTimePickerAdapter).value!);
 
           workExperience['date_from'] = DateFormat.yMMM()
@@ -567,7 +595,7 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
         title: Text("To"),
         selectedTextStyle: TextStyle(color: AppColor.primaryColor),
         onConfirm: (Picker picker, List value) {
-          toDate.text = DateFormat.yMMM()
+          toDate!.text = DateFormat.yMMM()
               .format((picker.adapter as DateTimePickerAdapter).value!);
           workExperience['date_to'] = DateFormat.yMMM()
               .format((picker.adapter as DateTimePickerAdapter).value!);

@@ -14,7 +14,6 @@ import 'package:job_aid/main.dart';
 import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_certificate.dart';
 import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_education.dart';
 import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_language.dart';
-import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_projects.dart';
 import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_skills.dart';
 import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_work_experience.dart';
 import 'package:job_aid/utils/auth_helper.dart';
@@ -149,12 +148,12 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                             ),
                             const SizedBox(height: 20),
                             CSCPicker(
-                              currentCity:  jsonDecode(prefs!.getString('userDetails')!)[
-                                      'city'],
-                              currentCountry:  jsonDecode(prefs!.getString('userDetails')!)[
-                                      'country'],
-                              currentState:  jsonDecode(prefs!.getString('userDetails')!)[
-                                      'province'],
+                              currentCity: jsonDecode(
+                                  prefs!.getString('userDetails')!)['city'],
+                              currentCountry: jsonDecode(
+                                  prefs!.getString('userDetails')!)['country'],
+                              currentState: jsonDecode(
+                                  prefs!.getString('userDetails')!)['province'],
                               defaultCountry: DefaultCountry.Pakistan,
                               dropdownDecoration: BoxDecoration(),
                               disabledDropdownDecoration: BoxDecoration(),
@@ -703,19 +702,25 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: ProfileComponents()
                                             .workExperienceCard(
+                                          data: jsonDecode(prefs!
+                                                  .getString('userDetails')!)[
+                                              'work_experience'][index],
                                           companyName: jsonDecode(prefs!
-                                                      .getString(
-                                                          'userDetails')!)[
-                                                  'work_experience'][index]
-                                              ['compnay_name'],
+                                                          .getString(
+                                                              'userDetails')!)[
+                                                      'work_experience'][index]
+                                                  ['compnay_name'] ??
+                                              '',
                                           jobTitle: jsonDecode(prefs!.getString(
-                                                      'userDetails')!)[
-                                                  'work_experience'][index]
-                                              ['job_title'],
+                                                          'userDetails')!)[
+                                                      'work_experience'][index]
+                                                  ['job_title'] ??
+                                              '',
                                           from: jsonDecode(prefs!.getString(
-                                                      'userDetails')!)[
-                                                  'work_experience'][index]
-                                              ['date_from'],
+                                                          'userDetails')!)[
+                                                      'work_experience'][index]
+                                                  ['date_from'] ??
+                                              '',
                                           to: jsonDecode(prefs!.getString(
                                                           'userDetails')!)[
                                                       'work_experience'][index]
@@ -757,7 +762,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                 ),
                               ),
                               onPressed: () {
-                                Get.to(AddWorkExperience());
+                                Get.to(AddWorkExperience(
+                                    isUpdate: false, data: {}));
                               },
                               child: const Text("Add Work Experience"),
                             ),
@@ -798,11 +804,16 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                         child:
                                             ProfileComponents().educationCard(
                                           degreeTitle: jsonDecode(prefs!
-                                                  .getString('userDetails')!)[
-                                              'educations'][index]['course'],
+                                                          .getString(
+                                                              'userDetails')!)[
+                                                      'educations'][index]
+                                                  ['course'] ??
+                                              '',
                                           from: jsonDecode(prefs!.getString(
-                                                  'userDetails')!)['educations']
-                                              [index]['from'],
+                                                          'userDetails')!)[
+                                                      'educations'][index]
+                                                  ['from'] ??
+                                              '',
                                           score: jsonDecode(prefs!.getString(
                                                           'userDetails')!)[
                                                       'educations'][index]
@@ -812,8 +823,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                                       'userDetails')!)[
                                                   'educations'][index]['scale'],
                                           to: jsonDecode(prefs!.getString(
-                                                  'userDetails')!)['educations']
-                                              [index]['to'],
+                                                      'userDetails')!)[
+                                                  'educations'][index]['to'] ??
+                                              '',
                                           uniName: jsonDecode(prefs!.getString(
                                                   'userDetails')!)['educations']
                                               [index]['institute'],
@@ -893,22 +905,29 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: ProfileComponents().projectsCard(
                                           from: jsonDecode(prefs!.getString(
-                                                  'userDetails')!)['projects']
-                                              [index]['from'],
+                                                      'userDetails')!)[
+                                                  'projects'][index]['from'] ??
+                                              '',
                                           projectTitle: jsonDecode(prefs!
-                                                      .getString(
-                                                          'userDetails')!)[
-                                                  'projects'][index]
-                                              ['project_name'],
+                                                          .getString(
+                                                              'userDetails')!)[
+                                                      'projects'][index]
+                                                  ['project_name'] ??
+                                              '',
                                           role: jsonDecode(prefs!.getString(
-                                                  'userDetails')!)['projects']
-                                              [index]['your_role'],
+                                                          'userDetails')!)[
+                                                      'projects'][index]
+                                                  ['your_role'] ??
+                                              '',
                                           to: jsonDecode(prefs!.getString(
-                                                  'userDetails')!)['projects']
-                                              [index]['to'],
+                                                      'userDetails')!)[
+                                                  'projects'][index]['to'] ??
+                                              '',
                                           url: jsonDecode(prefs!.getString(
-                                                  'userDetails')!)['projects']
-                                              [index]['project_url'],
+                                                          'userDetails')!)[
+                                                      'projects'][index]
+                                                  ['project_url'] ??
+                                              '',
                                         ),
                                       );
                                     },
@@ -945,7 +964,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                 ),
                               ),
                               onPressed: () {
-                                Get.to(AddProjects());
+                                print(jsonDecode(prefs!
+                                        .getString('userDetails')!)['projects']
+                                    .length);
+                                // Get.to(AddProjects());
                               },
                               child: const Text("Add Projects"),
                             ),
@@ -986,17 +1008,22 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                         child:
                                             ProfileComponents().certificateCard(
                                           certificateTitle: jsonDecode(prefs!
-                                                  .getString('userDetails')!)[
-                                              'certificate'][index]['title'],
+                                                          .getString(
+                                                              'userDetails')!)[
+                                                      'certificate'][index]
+                                                  ['title'] ??
+                                              '',
                                           companyName: jsonDecode(prefs!
-                                                      .getString(
-                                                          'userDetails')!)[
-                                                  'certificate'][index]
-                                              ['publishing_organization'],
+                                                          .getString(
+                                                              'userDetails')!)[
+                                                      'certificate'][index]
+                                                  ['publishing_organization'] ??
+                                              '',
                                           from: jsonDecode(prefs!.getString(
-                                                      'userDetails')!)[
-                                                  'certificate'][index]
-                                              ['date_of_issue'],
+                                                          'userDetails')!)[
+                                                      'certificate'][index]
+                                                  ['date_of_issue'] ??
+                                              '',
                                         ),
                                       );
                                     },
@@ -1073,13 +1100,17 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: ProfileComponents().languageCard(
                                           languageTitle: jsonDecode(prefs!
-                                                  .getString('userDetails')!)[
-                                              'languages'][index]['language'],
+                                                          .getString(
+                                                              'userDetails')!)[
+                                                      'languages'][index]
+                                                  ['language'] ??
+                                              '',
                                           proficiency: jsonDecode(prefs!
-                                                      .getString(
-                                                          'userDetails')!)[
-                                                  'languages'][index]
-                                              ['proficiency'],
+                                                          .getString(
+                                                              'userDetails')!)[
+                                                      'languages'][index]
+                                                  ['proficiency'] ??
+                                              '',
                                         ),
                                       );
                                     },

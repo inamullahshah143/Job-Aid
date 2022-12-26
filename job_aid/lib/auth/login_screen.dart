@@ -4,7 +4,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:job_aid/auth/auth_type.dart';
 import 'package:job_aid/auth/candidate_registration/candidate_registration.dart';
@@ -258,61 +257,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
             ),
-            SocialButton(
-              text: 'Or log in with',
-              onTapFacebook: () {
-                Components.showSnackBar(
-                    context, 'Facebook login currently not available');
-              },
-              onTapGoogle: () {
-                Components.showSnackBar(
-                    context, 'Gmail login currently not available');
-              },
-            ),
             const SizedBox(height: 50),
           ],
         ),
       ),
-    );
-  }
-}
-
-class SocialButton extends StatelessWidget {
-  const SocialButton({
-    Key? key,
-    required this.text,
-    this.onTapFacebook,
-    this.onTapGoogle,
-  }) : super(key: key);
-
-  final String text;
-  final VoidCallback? onTapGoogle;
-  final VoidCallback? onTapFacebook;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          text,
-          style: const TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 14,
-            color: AppColor.blackColor,
-          ),
-        ),
-        const SizedBox(width: 40),
-        InkWell(
-          onTap: onTapGoogle,
-          child: SvgPicture.asset('assets/icons/google_logo.svg'),
-        ),
-        const SizedBox(width: 20),
-        InkWell(
-          onTap: onTapFacebook,
-          child: SvgPicture.asset('assets/icons/facebook_logo.svg'),
-        ),
-      ],
     );
   }
 }

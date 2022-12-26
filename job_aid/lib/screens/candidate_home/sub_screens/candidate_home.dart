@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:job_aid/constants/colors.dart';
-import 'package:job_aid/constants/k_images.dart';
 import 'package:job_aid/screens/candidate_home/controller/jobs_controller.dart';
 import 'package:job_aid/screens/candidate_home/sub_screens/all_application.dart';
 
@@ -19,13 +17,6 @@ class CandidateHomeScreen extends StatelessWidget {
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColor.placeholder.withOpacity(0.1),
-              suffixIcon: IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset(
-                  Kimages.filterIcon,
-                  color: AppColor.blackColor,
-                ),
-              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide.none,

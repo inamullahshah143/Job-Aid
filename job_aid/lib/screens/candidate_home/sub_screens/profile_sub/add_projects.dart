@@ -10,7 +10,10 @@ import 'package:job_aid/constants/components.dart';
 import 'package:job_aid/main.dart';
 
 class AddProjects extends StatefulWidget {
-  AddProjects({super.key});
+  final bool isUpdate;
+  final Map<String, dynamic> data;
+  AddProjects({super.key, required this.isUpdate, required this.data});
+
 
   @override
   State<AddProjects> createState() => _AddProjectsState();

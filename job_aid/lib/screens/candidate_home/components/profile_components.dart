@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
 import 'package:job_aid/constants/colors.dart';
-
+import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_certificate.dart';
+import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_education.dart';
+import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_language.dart';
+import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_projects.dart';
 import '../sub_screens/profile_sub/add_work_experience.dart';
 
 class ProfileComponents {
   Widget workExperienceCard({
+    required int index,
     required Map<String, dynamic> data,
     required String jobTitle,
     required String companyName,
@@ -31,6 +35,7 @@ class ProfileComponents {
               color: AppColor.primaryColor,
             ),
             onPressed: () {
+              data['index'] = index;
               Get.to(AddWorkExperience(
                 isUpdate: true,
                 data: data,
@@ -96,6 +101,8 @@ class ProfileComponents {
   }
 
   Widget educationCard({
+    required int index,
+    required Map<String, dynamic> data,
     required String degreeTitle,
     required String uniName,
     required String from,
@@ -119,7 +126,13 @@ class ProfileComponents {
               size: 16,
               color: AppColor.primaryColor,
             ),
-            onPressed: () {},
+            onPressed: () {
+              data['index'] = index;
+              Get.to(AddEducation(
+                isUpdate: true,
+                data: data,
+              ));
+            },
           ),
           contentPadding: EdgeInsets.zero,
           title: Padding(
@@ -197,6 +210,8 @@ class ProfileComponents {
   }
 
   Widget projectsCard({
+    required int index,
+    required Map<String, dynamic> data,
     required String projectTitle,
     required String role,
     required String from,
@@ -220,7 +235,13 @@ class ProfileComponents {
               size: 16,
               color: AppColor.primaryColor,
             ),
-            onPressed: () {},
+            onPressed: () {
+              data['index'] = index;
+              Get.to(AddProjects(
+                isUpdate: true,
+                data: data,
+              ));
+            },
           ),
           contentPadding: EdgeInsets.zero,
           title: Padding(
@@ -292,6 +313,8 @@ class ProfileComponents {
   }
 
   Widget certificateCard({
+    required int index,
+    required Map<String, dynamic> data,
     required String certificateTitle,
     required String companyName,
     required String from,
@@ -313,7 +336,13 @@ class ProfileComponents {
               size: 16,
               color: AppColor.primaryColor,
             ),
-            onPressed: () {},
+            onPressed: () {
+              data['index'] = index;
+              Get.to(AddCertificate(
+                isUpdate: true,
+                data: data,
+              ));
+            },
           ),
           contentPadding: EdgeInsets.zero,
           title: Padding(
@@ -357,6 +386,8 @@ class ProfileComponents {
   }
 
   Widget languageCard({
+    required int index,
+    required Map<String, dynamic> data,
     required String languageTitle,
     required String proficiency,
   }) {
@@ -377,7 +408,13 @@ class ProfileComponents {
               size: 16,
               color: AppColor.primaryColor,
             ),
-            onPressed: () {},
+            onPressed: () {
+              data['index'] = index;
+              Get.to(AddLanguage(
+                isUpdate: true,
+                data: data,
+              ));
+            },
           ),
           contentPadding: EdgeInsets.zero,
           title: Padding(

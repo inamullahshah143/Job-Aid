@@ -14,7 +14,9 @@ import 'package:job_aid/utils/upload_file.dart';
 import '../../../../constants/colors.dart';
 
 class AddCertificate extends StatefulWidget {
-  AddCertificate({super.key});
+  final bool isUpdate;
+  final Map<String, dynamic> data;
+  AddCertificate({super.key, required this.isUpdate, required this.data});
 
   @override
   State<AddCertificate> createState() => _AddCertificateState();
@@ -25,13 +27,25 @@ class _AddCertificateState extends State<AddCertificate> {
 
   final now = DateTime.now();
 
-  final TextEditingController issueDate = TextEditingController();
+  TextEditingController issueDate = TextEditingController();
 
-  final TextEditingController expireDate = TextEditingController();
+  TextEditingController expireDate = TextEditingController();
 
   File? attachments;
 
+  bool? isUpdate;
+
   Map<String, dynamic> certificate = {};
+  @override
+  void initState() {
+    certificate = widget.data;
+    issueDate = TextEditingController(text: certificate['date_of_issue']);
+    expireDate = TextEditingController(text: certificate['date_of_expire']);
+    willExpire.value = certificate['will_expire'] ?? false;
+    isUpdate = widget.isUpdate;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +79,7 @@ class _AddCertificateState extends State<AddCertificate> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  controller: TextEditingController(text: certificate['title']),
                   onChanged: (value) {
                     certificate['title'] = value;
                   },
@@ -91,6 +106,8 @@ class _AddCertificateState extends State<AddCertificate> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller: TextEditingController(
+                      text: certificate['publishing_organization']),
                   onChanged: (value) {
                     certificate['publishing_organization'] = value;
                   },
@@ -202,6 +219,8 @@ class _AddCertificateState extends State<AddCertificate> {
                 }),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller:
+                      TextEditingController(text: certificate['cridential_id']),
                   onChanged: (value) {
                     certificate['cridential_id'] = value;
                   },
@@ -326,38 +345,106 @@ class _AddCertificateState extends State<AddCertificate> {
               ),
             ),
           ),
-          onPressed: () async {
-            Components.showAlertDialog(context);
-            await UploadFiles()
-                .uploadFile('Certificate', certificate['attachments'])
-                .then((value) {
-              certificate['attachments'] = value;
-            }).whenComplete(() async {
-              List certificates =
-                  jsonDecode(prefs!.getString('userDetails')!)['certificate'] ??
-                      [];
-              certificates.add(certificate);
-              await FirebaseFirestore.instance
-                  .collection('user_record')
-                  .doc(user.uid)
-                  .update({'certificate': certificates}).whenComplete(() async {
-                Map<String, dynamic> updateUserData =
-                    jsonDecode(prefs!.getString('userDetails')!);
-                updateUserData['certificate'] = certificates;
-                prefs!.setString('userDetails', jsonEncode(updateUserData));
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-                Components.showSnackBar(context, 'Record Updated Successfully');
-              }).catchError((e) {
-                Navigator.of(context).pop();
-                Components.showSnackBar(context, e.toString());
-              });
-            }).catchError((e) {
-              Navigator.of(context).pop();
-              Components.showSnackBar(context, e.toString());
-            });
-          },
-          child: const Text("Add Certificate"),
+          onPressed: isUpdate!
+              ? () async {
+                  Components.showAlertDialog(context);
+                  if (attachments != null) {
+                    await UploadFiles()
+                        .uploadFile('Certificate', certificate['attachments'])
+                        .then((value) {
+                      certificate['attachments'] = value;
+                    }).whenComplete(() async {
+                      List certificates =
+                          jsonDecode(prefs!.getString('userDetails')!)[
+                                  'certificate'] ??
+                              [];
+
+                      certificates.removeAt(certificate['index']);
+                      certificates.add(certificate);
+                      await FirebaseFirestore.instance
+                          .collection('user_record')
+                          .doc(user.uid)
+                          .update({'certificate': certificates}).whenComplete(
+                              () async {
+                        Map<String, dynamic> updateUserData =
+                            jsonDecode(prefs!.getString('userDetails')!);
+                        updateUserData['certificate'] = certificates;
+                        prefs!.setString(
+                            'userDetails', jsonEncode(updateUserData));
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                        Components.showSnackBar(
+                            context, 'Record Updated Successfully');
+                      }).catchError((e) {
+                        Navigator.of(context).pop();
+                        Components.showSnackBar(context, e.toString());
+                      });
+                    }).catchError((e) {
+                      Navigator.of(context).pop();
+                      Components.showSnackBar(context, e.toString());
+                    });
+                  } else {
+                    List certificates = jsonDecode(
+                            prefs!.getString('userDetails')!)['certificate'] ??
+                        [];
+
+                    certificates.removeAt(certificate['index']);
+                    certificates.add(certificate);
+                    await FirebaseFirestore.instance
+                        .collection('user_record')
+                        .doc(user.uid)
+                        .update({'certificate': certificates}).whenComplete(
+                            () async {
+                      Map<String, dynamic> updateUserData =
+                          jsonDecode(prefs!.getString('userDetails')!);
+                      updateUserData['certificate'] = certificates;
+                      prefs!
+                          .setString('userDetails', jsonEncode(updateUserData));
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      Components.showSnackBar(
+                          context, 'Record Updated Successfully');
+                    }).catchError((e) {
+                      Navigator.of(context).pop();
+                      Components.showSnackBar(context, e.toString());
+                    });
+                  }
+                }
+              : () async {
+                  Components.showAlertDialog(context);
+                  await UploadFiles()
+                      .uploadFile('Certificate', certificate['attachments'])
+                      .then((value) {
+                    certificate['attachments'] = value;
+                  }).whenComplete(() async {
+                    List certificates = jsonDecode(
+                            prefs!.getString('userDetails')!)['certificate'] ??
+                        [];
+                    certificates.add(certificate);
+                    await FirebaseFirestore.instance
+                        .collection('user_record')
+                        .doc(user.uid)
+                        .update({'certificate': certificates}).whenComplete(
+                            () async {
+                      Map<String, dynamic> updateUserData =
+                          jsonDecode(prefs!.getString('userDetails')!);
+                      updateUserData['certificate'] = certificates;
+                      prefs!
+                          .setString('userDetails', jsonEncode(updateUserData));
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      Components.showSnackBar(
+                          context, 'Record Updated Successfully');
+                    }).catchError((e) {
+                      Navigator.of(context).pop();
+                      Components.showSnackBar(context, e.toString());
+                    });
+                  }).catchError((e) {
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(context, e.toString());
+                  });
+                },
+          child: Text(isUpdate! ? "Update Certificate" : "Add Certificate"),
         ),
       ),
     );

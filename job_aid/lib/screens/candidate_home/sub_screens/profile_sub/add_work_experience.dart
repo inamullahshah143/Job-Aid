@@ -28,13 +28,14 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
   TextEditingController? toDate;
 
   Map<String, dynamic> workExperience = {};
-
+  bool? isUpdate;
   @override
   void initState() {
     workExperience = widget.data;
     fromDate = TextEditingController(text: workExperience['date_from']);
     toDate = TextEditingController(text: workExperience['date_to']);
     currentlyWorking.value = workExperience['currently_working'] ?? false;
+    isUpdate = widget.isUpdate;
     super.initState();
   }
 
@@ -360,8 +361,8 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
-                  controller:
-                      TextEditingController(text: workExperience['job_function']),
+                  controller: TextEditingController(
+                      text: workExperience['job_function']),
                   onChanged: (value) {
                     workExperience['job_function'] = value;
                   },
@@ -388,8 +389,8 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
-                  controller: TextEditingController(
-                      text: workExperience['salary']),
+                  controller:
+                      TextEditingController(text: workExperience['salary']),
                   onChanged: (value) {
                     workExperience['salary'] = value;
                   },
@@ -538,29 +539,60 @@ class _AddWorkExperienceState extends State<AddWorkExperience> {
               ),
             ),
           ),
-          onPressed: () async {
-            Components.showAlertDialog(context);
-            List workExperiences = jsonDecode(
-                    prefs!.getString('userDetails')!)['work_experience'] ??
-                [];
-            workExperiences.add(workExperience);
-            await FirebaseFirestore.instance
-                .collection('user_record')
-                .doc(user.uid)
-                .update({'work_experience': workExperiences}).whenComplete(
-                    () async {
-              Map<String, dynamic> updateUserData =
-                  jsonDecode(prefs!.getString('userDetails')!);
-              updateUserData['work_experience'] = workExperiences;
-              prefs!.setString('userDetails', jsonEncode(updateUserData));
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              Components.showSnackBar(context, 'Record Updated Successfully');
-            }).catchError((e) {
-              Navigator.of(context).pop();
-              Components.showSnackBar(context, e.toString());
-            });
-          },
+          onPressed: isUpdate!
+              ? () async {
+                  Components.showAlertDialog(context);
+                  List workExperiences =
+                      jsonDecode(prefs!.getString('userDetails')!)[
+                              'work_experience'] ??
+                          [];
+                  workExperiences.removeAt(workExperience['index']);
+                  workExperiences.add(workExperience);
+                  await FirebaseFirestore.instance
+                      .collection('user_record')
+                      .doc(user.uid)
+                      .update({
+                    'work_experience': workExperiences
+                  }).whenComplete(() async {
+                    Map<String, dynamic> updateUserData =
+                        jsonDecode(prefs!.getString('userDetails')!);
+                    updateUserData['work_experience'] = workExperiences;
+                    prefs!.setString('userDetails', jsonEncode(updateUserData));
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(
+                        context, 'Record Updated Successfully');
+                  }).catchError((e) {
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(context, e.toString());
+                  });
+                }
+              : () async {
+                  Components.showAlertDialog(context);
+                  List workExperiences =
+                      jsonDecode(prefs!.getString('userDetails')!)[
+                              'work_experience'] ??
+                          [];
+                  workExperiences.add(workExperience);
+                  await FirebaseFirestore.instance
+                      .collection('user_record')
+                      .doc(user.uid)
+                      .update({
+                    'work_experience': workExperiences
+                  }).whenComplete(() async {
+                    Map<String, dynamic> updateUserData =
+                        jsonDecode(prefs!.getString('userDetails')!);
+                    updateUserData['work_experience'] = workExperiences;
+                    prefs!.setString('userDetails', jsonEncode(updateUserData));
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(
+                        context, 'Record Updated Successfully');
+                  }).catchError((e) {
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(context, e.toString());
+                  });
+                },
           child: Text(widget.isUpdate
               ? "Update Work Experience"
               : "Add Work Experience"),

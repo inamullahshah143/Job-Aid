@@ -8,7 +8,9 @@ import 'package:job_aid/constants/components.dart';
 import 'package:job_aid/main.dart';
 
 class AddLanguage extends StatefulWidget {
-  const AddLanguage({super.key});
+  final bool isUpdate;
+  final Map<String, dynamic> data;
+  AddLanguage({super.key, required this.isUpdate, required this.data});
 
   @override
   State<AddLanguage> createState() => _AddLanguageState();
@@ -16,6 +18,14 @@ class AddLanguage extends StatefulWidget {
 
 class _AddLanguageState extends State<AddLanguage> {
   Map<String, dynamic> language = {};
+  bool? isUpdate;
+  @override
+  void initState() {
+    language = widget.data;
+    isUpdate = widget.isUpdate;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +59,7 @@ class _AddLanguageState extends State<AddLanguage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  controller: TextEditingController(text: language['language']),
                   onChanged: (value) {
                     language['language'] = value;
                   },
@@ -75,6 +86,7 @@ class _AddLanguageState extends State<AddLanguage> {
                 ),
                 const SizedBox(height: 20),
                 DropdownButtonFormField(
+                  value: language['proficiency'],
                   onChanged: (value) {
                     language['proficiency'] = value;
                   },
@@ -144,28 +156,55 @@ class _AddLanguageState extends State<AddLanguage> {
               ),
             ),
           ),
-          onPressed: () async {
-            Components.showAlertDialog(context);
-            List languages =
-                jsonDecode(prefs!.getString('userDetails')!)['languages'] ?? [];
-            languages.add(language);
-            await FirebaseFirestore.instance
-                .collection('user_record')
-                .doc(user.uid)
-                .update({'languages': languages}).whenComplete(() async {
-              Map<String, dynamic> updateUserData =
-                  jsonDecode(prefs!.getString('userDetails')!);
-              updateUserData['languages'] = languages;
-              prefs!.setString('userDetails', jsonEncode(updateUserData));
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              Components.showSnackBar(context, 'Record Updated Successfully');
-            }).catchError((e) {
-              Navigator.of(context).pop();
-              Components.showSnackBar(context, e.toString());
-            });
-          },
-          child: const Text("Add Language"),
+          onPressed: isUpdate!
+              ? () async {
+                  Components.showAlertDialog(context);
+                  List languages = jsonDecode(
+                          prefs!.getString('userDetails')!)['languages'] ??
+                      [];
+                  languages.removeAt(language['index']);
+                  languages.add(language);
+                  await FirebaseFirestore.instance
+                      .collection('user_record')
+                      .doc(user.uid)
+                      .update({'languages': languages}).whenComplete(() async {
+                    Map<String, dynamic> updateUserData =
+                        jsonDecode(prefs!.getString('userDetails')!);
+                    updateUserData['languages'] = languages;
+                    prefs!.setString('userDetails', jsonEncode(updateUserData));
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(
+                        context, 'Record Updated Successfully');
+                  }).catchError((e) {
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(context, e.toString());
+                  });
+                }
+              : () async {
+                  Components.showAlertDialog(context);
+                  List languages = jsonDecode(
+                          prefs!.getString('userDetails')!)['languages'] ??
+                      [];
+                  languages.add(language);
+                  await FirebaseFirestore.instance
+                      .collection('user_record')
+                      .doc(user.uid)
+                      .update({'languages': languages}).whenComplete(() async {
+                    Map<String, dynamic> updateUserData =
+                        jsonDecode(prefs!.getString('userDetails')!);
+                    updateUserData['languages'] = languages;
+                    prefs!.setString('userDetails', jsonEncode(updateUserData));
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(
+                        context, 'Record Updated Successfully');
+                  }).catchError((e) {
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(context, e.toString());
+                  });
+                },
+          child: Text(isUpdate! ? "Update Language" : "Add Language"),
         ),
       ),
     );

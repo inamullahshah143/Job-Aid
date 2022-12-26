@@ -702,6 +702,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: ProfileComponents()
                                             .workExperienceCard(
+                                          index: index,
                                           data: jsonDecode(prefs!
                                                   .getString('userDetails')!)[
                                               'work_experience'][index],
@@ -803,6 +804,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child:
                                             ProfileComponents().educationCard(
+                                          index: index,
+                                          data: jsonDecode(prefs!.getString(
+                                                  'userDetails')!)['educations']
+                                              [index],
                                           degreeTitle: jsonDecode(prefs!
                                                           .getString(
                                                               'userDetails')!)[
@@ -865,7 +870,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                 ),
                               ),
                               onPressed: () {
-                                Get.to(AddEducation());
+                                Get.to(AddEducation(isUpdate: false, data: {}));
                               },
                               child: const Text("Add Education"),
                             ),
@@ -904,6 +909,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                       return Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: ProfileComponents().projectsCard(
+                                          index: index,
+                                          data: jsonDecode(prefs!.getString(
+                                                  'userDetails')!)['projects']
+                                              [index],
                                           from: jsonDecode(prefs!.getString(
                                                       'userDetails')!)[
                                                   'projects'][index]['from'] ??
@@ -1007,6 +1016,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child:
                                             ProfileComponents().certificateCard(
+                                          index: index,
+                                          data: jsonDecode(prefs!.getString(
+                                                  'userDetails')!)['certificate']
+                                              [index],
                                           certificateTitle: jsonDecode(prefs!
                                                           .getString(
                                                               'userDetails')!)[
@@ -1060,7 +1073,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                 ),
                               ),
                               onPressed: () {
-                                Get.to(AddCertificate());
+                                Get.to(
+                                    AddCertificate(isUpdate: false, data: {}));
                               },
                               child: const Text("Add Certificates"),
                             ),
@@ -1099,6 +1113,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                       return Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: ProfileComponents().languageCard(
+                                          index: index,
+                                          data: jsonDecode(prefs!.getString(
+                                                  'userDetails')!)['languages']
+                                              [index],
                                           languageTitle: jsonDecode(prefs!
                                                           .getString(
                                                               'userDetails')!)[
@@ -1147,7 +1165,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                 ),
                               ),
                               onPressed: () {
-                                Get.to(AddLanguage());
+                                Get.to(AddLanguage(isUpdate: false, data: {}));
                               },
                               child: const Text("Add Languages"),
                             ),

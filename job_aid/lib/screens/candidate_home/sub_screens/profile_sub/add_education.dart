@@ -13,7 +13,9 @@ import 'package:job_aid/main.dart';
 import 'package:job_aid/utils/upload_file.dart';
 
 class AddEducation extends StatefulWidget {
-  AddEducation({super.key});
+  final bool isUpdate;
+  final Map<String, dynamic> data;
+  AddEducation({super.key, required this.isUpdate, required this.data});
 
   @override
   State<AddEducation> createState() => _AddEducationState();
@@ -22,12 +24,23 @@ class AddEducation extends StatefulWidget {
 class _AddEducationState extends State<AddEducation> {
   final currentlyLearning = false.obs;
   final now = DateTime.now();
-  final TextEditingController fromDate = TextEditingController();
-  final TextEditingController toDate = TextEditingController();
+  TextEditingController fromDate = TextEditingController();
+  TextEditingController toDate = TextEditingController();
 
   Map<String, dynamic> education = {};
 
   File? attachments;
+  bool? isUpdate;
+  @override
+  void initState() {
+    education = widget.data;
+    fromDate = TextEditingController(text: education['from']);
+    toDate = TextEditingController(text: education['to']);
+    currentlyLearning.value = education['graduated'] ?? false;
+    isUpdate = widget.isUpdate;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +74,7 @@ class _AddEducationState extends State<AddEducation> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DropdownButtonFormField(
+                  value: education['educational_attainment'],
                   onChanged: (value) {
                     education['educational_attainment'] = value;
                   },
@@ -121,6 +135,7 @@ class _AddEducationState extends State<AddEducation> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller: TextEditingController(text: education['course']),
                   onChanged: (value) {
                     education['course'] = value;
                   },
@@ -147,6 +162,8 @@ class _AddEducationState extends State<AddEducation> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller:
+                      TextEditingController(text: education['institute']),
                   onChanged: (value) {
                     education['institute'] = value;
                   },
@@ -262,6 +279,8 @@ class _AddEducationState extends State<AddEducation> {
                     Flexible(
                       flex: 1,
                       child: TextFormField(
+                        controller:
+                            TextEditingController(text: education['score']),
                         onChanged: (value) {
                           education['score'] = value;
                         },
@@ -291,6 +310,8 @@ class _AddEducationState extends State<AddEducation> {
                     Flexible(
                       flex: 1,
                       child: TextFormField(
+                        controller:
+                            TextEditingController(text: education['scale']),
                         onChanged: (value) {
                           education['scale'] = value;
                         },
@@ -320,6 +341,8 @@ class _AddEducationState extends State<AddEducation> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller:
+                      TextEditingController(text: education['description']),
                   onChanged: (value) {
                     education['description'] = value;
                   },

@@ -13,6 +13,7 @@ import 'package:job_aid/main.dart';
 import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_certificate.dart';
 import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_education.dart';
 import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_language.dart';
+import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_projects.dart';
 import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_skills.dart';
 import 'package:job_aid/screens/candidate_home/sub_screens/profile_sub/add_work_experience.dart';
 import 'package:job_aid/utils/auth_helper.dart';
@@ -964,10 +965,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                 ),
                               ),
                               onPressed: () {
-                                print(jsonDecode(prefs!
-                                        .getString('userDetails')!)['projects']
-                                    .length);
-                                // Get.to(AddProjects());
+                                Get.to(AddProjects(isUpdate: false, data: {}));
                               },
                               child: const Text("Add Projects"),
                             ),

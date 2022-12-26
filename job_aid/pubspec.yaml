@@ -68,6 +68,7 @@ dependencies:
   csc_picker: ^0.2.6
   http: ^0.13.5
   geolocator: ^9.0.2
+  flutter_phone_direct_caller: ^2.1.1
 
 dev_dependencies:
   flutter_test:

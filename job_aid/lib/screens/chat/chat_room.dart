@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:job_aid/constants/colors.dart';
 import 'package:job_aid/main.dart';
 import 'package:job_aid/screens/chat/get_messages.dart';
+import 'package:job_aid/utils/helper.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatRoom extends StatefulWidget {
@@ -107,7 +108,9 @@ class _ChatRoomState extends State<ChatRoom> {
         actions: [
           IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () async {},
+            onPressed: () async {
+              Helper().callNumber(context, widget.phoneNo);
+            },
             icon: Icon(
               Icons.call_outlined,
               size: 18,

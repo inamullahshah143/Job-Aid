@@ -1,3 +1,6 @@
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:job_aid/constants/components.dart';
+
 class Helper {
   static String? validateEmail(String value) {
     String pattern =
@@ -24,5 +27,12 @@ class Helper {
         return null;
       }
     }
+  }
+
+  
+  callNumber(context, number) async {
+    await FlutterPhoneDirectCaller.callNumber(number).catchError((e) {
+      Components.showSnackBar(context, e.toString());
+    });
   }
 }

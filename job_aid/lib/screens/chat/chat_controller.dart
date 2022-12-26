@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:job_aid/constants/components.dart';
 import 'package:job_aid/main.dart';
+import 'package:job_aid/utils/helper.dart';
 import 'chat_room.dart';
 
 class ChatController {
@@ -59,7 +60,7 @@ class ChatController {
                     size: 18,
                   ),
                   onPressed: () async {
-                    // Helper().callNumber(context, user.data()['phone_no']);
+                    Helper().callNumber(context, user.data()!['phone_no']);
                   },
                 ),
               ),

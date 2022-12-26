@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:job_aid/auth/splash_screen.dart';
@@ -96,14 +95,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                 fontSize: 12,
                 color: AppColor.blackColor,
                 fontWeight: FontWeight.w200,
-              ),
-            ),
-            trailing: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                FontAwesome5.edit,
-                size: 16,
-                color: AppColor.primaryColor,
               ),
             ),
           ),
@@ -1017,9 +1008,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                         child:
                                             ProfileComponents().certificateCard(
                                           index: index,
-                                          data: jsonDecode(prefs!.getString(
-                                                  'userDetails')!)['certificate']
-                                              [index],
+                                          data: jsonDecode(prefs!
+                                                  .getString('userDetails')!)[
+                                              'certificate'][index],
                                           certificateTitle: jsonDecode(prefs!
                                                           .getString(
                                                               'userDetails')!)[
@@ -1265,81 +1256,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                                 Get.to(AddSkills());
                               },
                               child: const Text("Add Skills"),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  //CV-Resume
-                  ExpansionTile(
-                    leading: SvgPicture.asset(
-                      Kimages.cvIcon,
-                      width: 20,
-                      height: 20,
-                    ),
-                    title: Text('CV/Resume'),
-                    maintainState: true,
-                    collapsedIconColor: AppColor.blackColor,
-                    iconColor: AppColor.primaryColor,
-                    expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                    childrenPadding: EdgeInsets.all(25),
-                    children: [
-                      Form(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: ListTile(
-                                leading: Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: AppColor.transparent,
-                                  ),
-                                  child: SvgPicture.asset(Kimages.pdfIcon),
-                                ),
-                                title: Text(
-                                  'My CV.pdf',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: AppColor.blackColor,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  jsonDecode(prefs!.getString('userDetails')!)[
-                                      'cv_size'],
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: AppColor.blackColor.withOpacity(0.5),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        AppColor.primaryColor),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        AppColor.white),
-                                overlayColor: MaterialStateProperty.all<Color>(
-                                    AppColor.primary.withOpacity(0.1)),
-                                minimumSize: MaterialStateProperty.all(
-                                  Size(MediaQuery.of(context).size.width, 45),
-                                ),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                              ),
-                              onPressed: () {},
-                              child: const Text("Update CV/Resume"),
                             ),
                           ],
                         ),

@@ -469,38 +469,104 @@ class _AddEducationState extends State<AddEducation> {
               ),
             ),
           ),
-          onPressed: () async {
-            Components.showAlertDialog(context);
-            await UploadFiles()
-                .uploadFile('Education', education['attachment'])
-                .then((value) {
-              education['attachment'] = value;
-            }).whenComplete(() async {
-              List educations =
-                  jsonDecode(prefs!.getString('userDetails')!)['educations'] ??
-                      [];
-              educations.add(education);
-              await FirebaseFirestore.instance
-                  .collection('user_record')
-                  .doc(user.uid)
-                  .update({'educations': educations}).whenComplete(() async {
-                Map<String, dynamic> updateUserData =
-                    jsonDecode(prefs!.getString('userDetails')!);
-                updateUserData['educations'] = educations;
-                prefs!.setString('userDetails', jsonEncode(updateUserData));
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-                Components.showSnackBar(context, 'Record Updated Successfully');
-              }).catchError((e) {
-                Navigator.of(context).pop();
-                Components.showSnackBar(context, e.toString());
-              });
-            }).catchError((e) {
-              Navigator.of(context).pop();
-              Components.showSnackBar(context, e.toString());
-            });
-          },
-          child: const Text("Add Education"),
+          onPressed: isUpdate!
+              ? () async {
+                  Components.showAlertDialog(context);
+                  if (attachments != null) {
+                    await UploadFiles()
+                        .uploadFile('Education', education['attachment'])
+                        .then((value) {
+                      education['attachment'] = value;
+                    }).whenComplete(() async {
+                      List educations = jsonDecode(
+                              prefs!.getString('userDetails')!)['educations'] ??
+                          [];
+
+                      educations.removeAt(education['index']);
+                      educations.add(education);
+                      await FirebaseFirestore.instance
+                          .collection('user_record')
+                          .doc(user.uid)
+                          .update({'educations': educations}).whenComplete(
+                              () async {
+                        Map<String, dynamic> updateUserData =
+                            jsonDecode(prefs!.getString('userDetails')!);
+                        updateUserData['educations'] = educations;
+                        prefs!.setString(
+                            'userDetails', jsonEncode(updateUserData));
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                        Components.showSnackBar(
+                            context, 'Record Updated Successfully');
+                      }).catchError((e) {
+                        Navigator.of(context).pop();
+                        Components.showSnackBar(context, e.toString());
+                      });
+                    }).catchError((e) {
+                      Navigator.of(context).pop();
+                      Components.showSnackBar(context, e.toString());
+                    });
+                  } else {
+                    List educations = jsonDecode(
+                            prefs!.getString('userDetails')!)['educations'] ??
+                        [];
+                    educations.removeAt(education['index']);
+                    educations.add(education);
+                    await FirebaseFirestore.instance
+                        .collection('user_record')
+                        .doc(user.uid)
+                        .update({'educations': educations}).whenComplete(
+                            () async {
+                      Map<String, dynamic> updateUserData =
+                          jsonDecode(prefs!.getString('userDetails')!);
+                      updateUserData['educations'] = educations;
+                      prefs!
+                          .setString('userDetails', jsonEncode(updateUserData));
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      Components.showSnackBar(
+                          context, 'Record Updated Successfully');
+                    }).catchError((e) {
+                      Navigator.of(context).pop();
+                      Components.showSnackBar(context, e.toString());
+                    });
+                  }
+                }
+              : () async {
+                  Components.showAlertDialog(context);
+                  await UploadFiles()
+                      .uploadFile('Education', education['attachment'])
+                      .then((value) {
+                    education['attachment'] = value;
+                  }).whenComplete(() async {
+                    List educations = jsonDecode(
+                            prefs!.getString('userDetails')!)['educations'] ??
+                        [];
+                    educations.add(education);
+                    await FirebaseFirestore.instance
+                        .collection('user_record')
+                        .doc(user.uid)
+                        .update({'educations': educations}).whenComplete(
+                            () async {
+                      Map<String, dynamic> updateUserData =
+                          jsonDecode(prefs!.getString('userDetails')!);
+                      updateUserData['educations'] = educations;
+                      prefs!
+                          .setString('userDetails', jsonEncode(updateUserData));
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      Components.showSnackBar(
+                          context, 'Record Updated Successfully');
+                    }).catchError((e) {
+                      Navigator.of(context).pop();
+                      Components.showSnackBar(context, e.toString());
+                    });
+                  }).catchError((e) {
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(context, e.toString());
+                  });
+                },
+          child: Text(isUpdate! ? "Update Education" : "Add Education"),
         ),
       ),
     );

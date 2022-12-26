@@ -14,7 +14,6 @@ class AddProjects extends StatefulWidget {
   final Map<String, dynamic> data;
   AddProjects({super.key, required this.isUpdate, required this.data});
 
-
   @override
   State<AddProjects> createState() => _AddProjectsState();
 }
@@ -24,11 +23,21 @@ class _AddProjectsState extends State<AddProjects> {
 
   final now = DateTime.now();
 
-  final TextEditingController fromDate = TextEditingController();
+  TextEditingController fromDate = TextEditingController();
 
-  final TextEditingController toDate = TextEditingController();
+  TextEditingController toDate = TextEditingController();
 
   Map<String, dynamic> project = {};
+  bool? isUpdate;
+  @override
+  void initState() {
+    project = widget.data;
+    fromDate = TextEditingController(text: project['from']);
+    toDate = TextEditingController(text: project['to']);
+    currentlyWorking.value = project['current'] ?? false;
+    isUpdate = widget.isUpdate;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +72,8 @@ class _AddProjectsState extends State<AddProjects> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
+                  controller:
+                      TextEditingController(text: project['project_name']),
                   onChanged: (value) {
                     project['project_name'] = value;
                   },
@@ -89,6 +100,7 @@ class _AddProjectsState extends State<AddProjects> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller: TextEditingController(text: project['your_role']),
                   onChanged: (value) {
                     project['your_role'] = value;
                   },
@@ -200,6 +212,8 @@ class _AddProjectsState extends State<AddProjects> {
                 }),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller:
+                      TextEditingController(text: project['associated_with']),
                   onChanged: (value) {
                     project['associated_with'] = value;
                   },
@@ -226,6 +240,8 @@ class _AddProjectsState extends State<AddProjects> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller:
+                      TextEditingController(text: project['description']),
                   onChanged: (value) {
                     project['description'] = value;
                   },
@@ -254,6 +270,8 @@ class _AddProjectsState extends State<AddProjects> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller:
+                      TextEditingController(text: project['project_url']),
                   onChanged: (value) {
                     project['project_url'] = value;
                   },
@@ -309,28 +327,55 @@ class _AddProjectsState extends State<AddProjects> {
               ),
             ),
           ),
-          onPressed: () async {
-            Components.showAlertDialog(context);
-            List projects =
-                jsonDecode(prefs!.getString('userDetails')!)['projects'] ?? [];
-            projects.add(project);
-            await FirebaseFirestore.instance
-                .collection('user_record')
-                .doc(user.uid)
-                .update({'projects': projects}).whenComplete(() async {
-              Map<String, dynamic> updateUserData =
-                  jsonDecode(prefs!.getString('userDetails')!);
-              updateUserData['projects'] = projects;
-              prefs!.setString('userDetails', jsonEncode(updateUserData));
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              Components.showSnackBar(context, 'Record Updated Successfully');
-            }).catchError((e) {
-              Navigator.of(context).pop();
-              Components.showSnackBar(context, e.toString());
-            });
-          },
-          child: const Text("Add Project"),
+          onPressed: isUpdate!
+              ? () async {
+                  Components.showAlertDialog(context);
+                  List projects = jsonDecode(
+                          prefs!.getString('userDetails')!)['projects'] ??
+                      [];
+                  projects.removeAt(project['index']);
+                  projects.add(project);
+                  await FirebaseFirestore.instance
+                      .collection('user_record')
+                      .doc(user.uid)
+                      .update({'projects': projects}).whenComplete(() async {
+                    Map<String, dynamic> updateUserData =
+                        jsonDecode(prefs!.getString('userDetails')!);
+                    updateUserData['projects'] = projects;
+                    prefs!.setString('userDetails', jsonEncode(updateUserData));
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(
+                        context, 'Record Updated Successfully');
+                  }).catchError((e) {
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(context, e.toString());
+                  });
+                }
+              : () async {
+                  Components.showAlertDialog(context);
+                  List projects = jsonDecode(
+                          prefs!.getString('userDetails')!)['projects'] ??
+                      [];
+                  projects.add(project);
+                  await FirebaseFirestore.instance
+                      .collection('user_record')
+                      .doc(user.uid)
+                      .update({'projects': projects}).whenComplete(() async {
+                    Map<String, dynamic> updateUserData =
+                        jsonDecode(prefs!.getString('userDetails')!);
+                    updateUserData['projects'] = projects;
+                    prefs!.setString('userDetails', jsonEncode(updateUserData));
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(
+                        context, 'Record Updated Successfully');
+                  }).catchError((e) {
+                    Navigator.of(context).pop();
+                    Components.showSnackBar(context, e.toString());
+                  });
+                },
+          child: Text(isUpdate! ? "Update Project" : "Add Project"),
         ),
       ),
     );
